@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import Home from './components/Home'
-import About from './components/About'
 import Login from './components/Login'
 import NavBar from './components/NavBar'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
@@ -36,7 +35,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App ui container">
         <NavBar
           currentUser={this.state.auth.currentUser}
           handleLogout={this.handleLogout}
@@ -50,14 +49,13 @@ class App extends React.Component {
               }}
             />
             <Route exact path="/" component={Home} />
-            <Route exact path="/about" component={About} />
             <Route exact path="/login" component={Login} />
             <Route
               path="/"
               render={() => {
                 const loggedIn = !!this.state.auth.currentUser.id;
 
-                return loggedIn ? <About /> : <Redirect to="/login" />;
+                return loggedIn ? <Home /> : <Redirect to="/login" />;
               }}
             />
           </Switch>
