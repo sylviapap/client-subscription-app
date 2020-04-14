@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import Home from './components/Home'
-import SignUp from './components/Signup'
-import Login from './components/Login'
-import NavBar from './components/NavBar'
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import AppContainer from './containers/AppContainer'
+import LoginContainer from './containers/LoginContainer';
+import SignUp from './components/SignUp'
 import api from './services/api';
-
-import SubsForm from './components/SubsForm'
 
 class App extends Component {
 
@@ -22,26 +19,20 @@ class App extends Component {
   componentDidMount() {
     const token = localStorage.getItem('token');
 
-    if (!!token) {
-      api.auth.getCurrentUser().then((user) => {
+    if (!!token && !!api.auth.getCurrentUser()) {
+      api.auth.getCurrentUser()
+        .then((user) => {
         const currentUser = { currentUser: user };
         this.setState({ auth: currentUser });
       });
     }
   }
 
-  handleLogin = (user) => {
-    const currentUser = { currentUser: user };
-    localStorage.setItem('token', user.token);
-    this.setState({ auth: currentUser });
-  };
-
-  handleLogout = () => {
+  componentWillUnmount() {
     localStorage.removeItem('token');
-    this.setState({ auth: { currentUser: {} } });
-  };
+  }
 
-  handleSubmit = event => {
+  handleSubscriptionSubmit = event => {
     event.preventDefault()
     
     fetch("http://localhost:3001/api/v1/subscriptions", {
@@ -73,45 +64,34 @@ class App extends Component {
     this.setState({
         cost: event.target.value
     })
-  }      
+  } 
+  
+  handleLogin = (user) => {
+    const currentUser = { currentUser: user };
+    localStorage.setItem('token', user.token);
+    this.setState({ auth: currentUser });
+  };
+
+  handleLogout = () => {
+    localStorage.removeItem('token');
+    this.setState({ auth: { currentUser: {} } });
+  };
 
   render() {
-    return (      
-      <div className="App ui container">
-        <NavBar
-          currentUser={this.state.auth.currentUser}
-          handleLogout={this.handleLogout}
-        />
-        
-        <SubsForm handleSubmit={this.handleSubmit} handleName={this.handleName} handleCost={this.handleCost} />  
-        
-        <div id="content" className="ui container">
+    return (
+        <div id="content" className="App ui container">
           <Switch>
             <Route
-              path="/login"
-              render={(routerProps) => {
-                return <Login {...routerProps} handleLogin={this.handleLogin} />;
-              }}
-            />
-            <Route
-              path="/signup"
-              render={(routerProps) => {
-                return <SignUp {...routerProps} handleLogin={this.handleLogin} />;
-              }}
-            />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />
-            <Route
               path="/"
-              render={() => {
-                const loggedIn = !!this.state.auth.currentUser.id;
-
-                return loggedIn ? <Home /> : <Redirect to="/login" />;
+              render= { () => {
+                const currentUser = this.state.auth.currentUser
+                const loggedIn = !!currentUser.id;
+                return (loggedIn ? <AppContainer /> : <LoginContainer handleLogin={this.handleLogin} handleLogout={this.handleLogout} />)
               }}
             />
+            <Route path="/signup" component={LoginContainer} />
           </Switch>
         </div>
-      </div>
     );
   }
 }
