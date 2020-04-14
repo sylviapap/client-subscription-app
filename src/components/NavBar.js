@@ -27,11 +27,11 @@ class NavBar extends React.Component {
             }}
             className="item"
           >
-            <div className="ui primary button">Log Out</div>
+            <div className="ui purple button">Log Out</div>
           </a>
         ) : (
           <Link to="/login" className="item">
-            <div className="ui primary button">Log In</div>
+            <div className="ui purple button">Log In</div>
           </Link>
         )}
       </div>
