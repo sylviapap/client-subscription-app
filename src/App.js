@@ -1,13 +1,17 @@
 import React from 'react';
 import './App.css';
 import Home from './components/Home'
+import SignUp from './components/SignUp'
 import Login from './components/Login'
 import NavBar from './components/NavBar'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import api from './services/api';
 
 class App extends React.Component {
-  state = { auth: { currentUser: {} } };
+  state = { 
+    auth: { 
+      currentUser: {} 
+    } };
 
   componentDidMount() {
     const token = localStorage.getItem('token');
@@ -46,6 +50,12 @@ class App extends React.Component {
               path="/login"
               render={(routerProps) => {
                 return <Login {...routerProps} handleLogin={this.handleLogin} />;
+              }}
+            />
+            <Route
+              path="/signup"
+              render={(routerProps) => {
+                return <SignUp {...routerProps} handleLogin={this.handleLogin} />;
               }}
             />
             <Route exact path="/" component={Home} />

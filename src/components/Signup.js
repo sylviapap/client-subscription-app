@@ -1,7 +1,7 @@
 import React from 'react';
-import api from '../services/api'
+// import api from '../services/api'
 
-class Signup extends React.Component {
+class SignUp extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -26,7 +26,7 @@ class Signup extends React.Component {
             method: 'POST',
             headers: {'Content-Type': 'application/json',
             Accept: 'application/json'},
-            body: JSON.stringify({ username: this.state.fields.username, password: this.state.fields.password })
+            body: JSON.stringify({ user: {username: this.state.fields.username, password: this.state.fields.password} })
         })
         .then(res => res.json())
         .then((res) =>
@@ -71,4 +71,4 @@ class Signup extends React.Component {
     }
   }
   
-  export default Signup;
+  export default SignUp;
