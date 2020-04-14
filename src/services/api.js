@@ -8,24 +8,25 @@ const headers = {
   Authorization: token
 };
 
-const getSubscriptions = () => {
-  return fetch(`${API_ROOT}/subscriptions/`, { headers: headers })
-  .then(res => res.json()
-  );
+const getSubscriptions = async () => {
+  const res = await fetch(`${API_ROOT}/subscriptions/`, { headers: headers });
+    return await res.json();
 };
 
-const login = (username, password) => {
-  return fetch(`${API_ROOT}/auth/`, {
-    method: 'POST',
-    headers: headers,
-    body: JSON.stringify({ username, password })
-  }).then(res => res.json());
+const login = async (username, password) => {
+  const res = await fetch(`${API_ROOT}/auth/`, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({ username, password })
+    });
+    return await res.json();
 };
 
-const getCurrentUser = () => {
-  return fetch(`${API_ROOT}/current_user`, {
-    headers: headers
-  }).then(res => res.json());
+const getCurrentUser = async () => {
+  const res = await fetch(`${API_ROOT}/current_user`, {
+        headers: headers
+    });
+    return await res.json();
 };
 
 export default {
