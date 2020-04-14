@@ -1,10 +1,5 @@
 import React from 'react';
-
-const API_ROOT = `http://localhost:3001/api/v1`;
-const headers = {
-  'Content-Type': 'application/json',
-  Accept: 'application/json'
-};
+import api from '../services/api'
 
 class Login extends React.Component {
     constructor() {
@@ -25,19 +20,13 @@ class Login extends React.Component {
     
       handleSubmit = (e) => {
         e.preventDefault();
-        fetch(`${API_ROOT}/users`, {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify({ username: this.state.fields.username, password: this.state.fields.password })
-          })
-          .then((res) => {
+    
+        api.auth.login(this.state.fields.username, this.state.fields.password).then((res) => {
           if (res.error) {
             this.setState({ error: true });
           } else {
-              this.setState({fields: {
-                username: '',
-                password: '',
-              }})
+            this.props.handleLogin(res);
+            this.props.history.push('/');
           }
         });
       };
