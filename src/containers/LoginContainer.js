@@ -54,7 +54,9 @@ class LoginContainer extends React.Component {
         return (
             <div className="ui container">
                 {this.state.error ? <h1>Error, please try again</h1> : null}
-                <SignUp fields={this.state.fields} handleSubmit={this.handleSignUpSubmit} handleChange={this.handleChange} />
+                <Switch>
+                    <Route exact path="/" render={(routerProps) => <SignUp {...routerProps} fields={this.state.fields} handleSubmit={this.handleSignUpSubmit} handleChange={this.handleChange}/>} />
+                </Switch>
             </div>
         )
     }

@@ -80,7 +80,6 @@ class App extends Component {
   render() {
     return (
         <div id="content" className="App ui container">
-          <Switch>
             <Route
               path="/"
               render= { () => {
@@ -89,8 +88,6 @@ class App extends Component {
                 return (loggedIn ? <AppContainer /> : <LoginContainer handleLogin={this.handleLogin} handleLogout={this.handleLogout} />)
               }}
             />
-            <Route path="/signup" component={LoginContainer} />
-          </Switch>
         </div>
     );
   }
