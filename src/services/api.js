@@ -10,7 +10,7 @@ const login = (username, password) => {
     return fetch(`${API_ROOT}/auth/`, {
       method: 'POST',
       headers: headers,
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({ user: {username, password} })
     }).then(res => res.json());
   };
   
