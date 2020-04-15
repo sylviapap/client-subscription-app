@@ -23,11 +23,9 @@ class App extends Component {
     }
   }
 
-  // type localstorage in console to check
-
-  // componentWillUnmount() {
-  //   localStorage.clear();
-  // }
+  componentWillUnmount() {
+    localStorage.clear();
+  }
 
   handleLogin = (user) => {
     const currentUser = { currentUser: user };
@@ -46,11 +44,16 @@ class App extends Component {
             <Route
               path="/"
               render= { (routerProps) => {
+                
                 const loggedIn = !!this.state.auth.currentUser.id;
-                return (loggedIn ? (<div><NavBar {...routerProps} currentUser={this.state.auth.currentUser} handleLogout={this.handleLogout}/><AppContainer {...routerProps} currentUser={this.state.auth.currentUser}/></div>) : <LoginContainer {...routerProps} handleLogin={this.handleLogin} />)
+
+                return (loggedIn ? (<div><NavBar {...routerProps} currentUser={this.state.auth.currentUser} handleLogout={this.handleLogout}/><AppContainer {...routerProps} currentUser={this.state.auth.currentUser}/></div>) 
+                
+                : 
+                
+                <LoginContainer {...routerProps} handleLogin={this.handleLogin} />)
               }}
             />
-            {/* <AppContainer /> */}
         </div>
     );
   }
