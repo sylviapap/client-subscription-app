@@ -20,9 +20,10 @@ class App extends Component {
             <Route
               path="/"
               render= { () => {
-                return (this.state.user.id ? <AppContainer /> : <LoginContainer setUser={this.setUser}/>)
+                return (this.state.user.id ? <AppContainer user={this.state.user}/> : <LoginContainer setUser={this.setUser}/>)
               }}
             />
+            {/* <AppContainer /> */}
         </div>
     );
   }

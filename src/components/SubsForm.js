@@ -1,25 +1,25 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 const SubsForm = props =>  {
-    const { handleSubmit, handleName, handleCost } = props;
+    const { handleSubmit, handleChange } = props;
     return (
         <div className="ui form">
             <form onSubmit={handleSubmit}>
                 <div className="ui field">
                 <label>
-                    Name:
-                    <input name="name" type="text" placeholder="Company Name"
-                    onChange={handleName}/>
+                    Company Name:
+                    <input name="company" type="text" placeholder="Company Name"
+                    onChange={handleChange}/>
                 </label>
                 </div>
                 <div className="ui field">
                 <label>
                     Cost:
                     <input name="cost" type="number" placeholder="0"
-                    onChange={handleCost}/>
+                    onChange={handleChange}/>
                 </label>
                 </div>
-                <input name="submit" value="Enter Sub" type="submit" className="ui basic purple button" />
+                <input name="submit" value="Add New Subscription" type="submit" className="ui basic purple button" />
             </form>
         </div>
     )
