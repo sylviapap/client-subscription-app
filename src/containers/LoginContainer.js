@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, Link } from 'react-router-dom';
 import SignUp from '../components/SignUp'
 import Login from '../components/Login'
 import api from '../services/api';
@@ -28,20 +28,26 @@ class LoginContainer extends React.Component {
 
     handleSignUpSubmit = (e) => {
         e.preventDefault();
-            fetch(`${API_ROOT}/users/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json'},
-                body: JSON.stringify({ 
-                    user: {
-                        username: this.state.fields.username, password: this.state.fields.password
-                    } 
-                })
+        fetch(`${API_ROOT}/users/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'},
+            body: JSON.stringify({ 
+                user: {
+                    username: this.state.fields.username, password: this.state.fields.password
+                } 
+            })
         })
         .then(res => res.json())
-        .then(user => this.login(user))
-    };
+        .then(res => {
+            if (res.error) {
+              this.setState({ error: true });
+            } else {
+              this.props.history.push('/');
+            }}
+        )
+    }
 
     handleLoginSubmit = (e) => {
         e.preventDefault();
@@ -70,7 +76,9 @@ class LoginContainer extends React.Component {
             <div className="ui container">
                 {this.state.error ? <h1>Error, please try again</h1> : null}
                 <Switch>
-                    <Route exact path="/" render={(routerProps) => <div>Sign Up<SignUp {...routerProps} fields={this.state.fields} handleSignUpSubmit={this.handleSignUpSubmit} handleChange={this.handleChange}/> or Log In <Login fields={this.state.fields} handleSubmit={this.handleLoginSubmit} handleChange={this.handleChange}/> </div>} />
+                    <Route exact path="/" render={() => <div>Sign Up or Log In <Login fields={this.state.fields} handleSubmit={this.handleLoginSubmit} handleChange={this.handleChange}/> <Link to="/signup">Create Account</Link></div>} />
+                    <Route path="/signup" render={() =>
+                        <SignUp fields={this.state.fields} handleSignUpSubmit={this.handleSignUpSubmit} handleChange={this.handleChange}/>} />
                 </Switch>
             </div>
         )
