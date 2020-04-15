@@ -59,7 +59,7 @@ class App extends Component {
             <Route
               path="/"
               render= { () => {
-                return (!this.state.auth.currentUser ? <AppContainer /> : <LoginContainer setUser={this.setUser}/>)
+                return (this.state.auth.currentUser.id ? <AppContainer /> : <LoginContainer setUser={this.setUser}/>)
               }}
             />
         </div>
