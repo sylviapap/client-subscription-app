@@ -6,8 +6,8 @@ const NavBar = props =>  {
   const loggedIn = !!currentUser.id;
     return (
       <div className="ui menu">
-        <Link to="/subscriptions" className="item">
-          Subscriptions
+        <Link to="/" className="item">
+          <div className="ui purple button">Log In</div>
         </Link>
         {loggedIn ? (
           <div className="item">
@@ -30,7 +30,7 @@ const NavBar = props =>  {
           </Link>
         )}
       </div>
-    );
+    )
 }
 
 export default withRouter(NavBar);

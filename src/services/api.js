@@ -2,8 +2,7 @@ const API_ROOT = `http://localhost:3001/api/v1`;
 const token = localStorage.getItem('token');
 const headers = {
   'Content-Type': 'application/json',
-  Accept: 'application/json',
-  Authorization: token
+  Accept: 'application/json'
 };
 
 const login = (username, password) => {

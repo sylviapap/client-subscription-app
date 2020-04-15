@@ -9,11 +9,7 @@ import api from './services/api';
 class App extends Component {
 
   state = {
-    company: "",
-    cost: 0,
-    auth: { 
-      currentUser: {} 
-    }
+    user: {}
   }
 
   componentDidMount() {
@@ -55,29 +51,6 @@ class App extends Component {
     });
   }
 
-  handleName = event => {
-    this.setState({
-        company: event.target.value
-    })
-  }
-
-  handleCost = event => {
-    this.setState({
-        cost: event.target.value
-    })
-  } 
-  
-  handleLogin = (user) => {
-    const currentUser = { currentUser: user };
-    localStorage.setItem('token', user.token);
-    this.setState({ auth: currentUser });
-  };
-
-  handleLogout = () => {
-    localStorage.removeItem('token');
-    this.setState({ auth: { currentUser: {} } });
-  };
-
   render() {
     return (
         <div id="content" className="App ui container">
@@ -88,6 +61,7 @@ class App extends Component {
                 return (loggedIn ? (<div><NavBar {...routerProps} currentUser={this.state.auth.currentUser} handleLogout={this.handleLogout}/><AppContainer {...routerProps} /></div>) : <LoginContainer {...routerProps} handleLogin={this.handleLogin} handleLogout={this.handleLogout} />)
               }}
             />
+            {/* <AppContainer /> */}
         </div>
     );
   }

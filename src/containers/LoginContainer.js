@@ -26,7 +26,7 @@ class LoginContainer extends React.Component {
         this.setState({ fields: newFields });
       };
 
-    handleSignUpSubmit = (e) => {
+    loginOrSignUp = (e) => {
         e.preventDefault();
         fetch(`${API_ROOT}/users/`, {
             method: 'POST',
