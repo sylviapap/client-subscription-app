@@ -4,6 +4,7 @@ import SubsList from './SubsList'
 import YourSubs from './YourSubs'
 
 const subsURL = "http://localhost:3001/api/v1/subscriptions"
+const usersURL = "http://localhost:3001/api/v1/users"
 const userSubsURL = "http://localhost:3001/api/v1/user_subscriptions"
 const headers = {
     'Content-Type': 'application/json',
@@ -24,8 +25,27 @@ class AppContainer extends React.Component {
     componentDidMount() {
         fetch(subsURL)
         .then(resp => resp.json())
+        // .then(resp => console.log(resp))
         .then(subData => this.setState({subscriptions: subData}))
     }
+
+    // componentDidMount() {
+    //     Promise.all([
+    //     fetch(subsURL), 
+    //     fetch(`${usersURL}/${this.props.currentUser.id}`)
+    // ]).then((resp) => { return [resp[0].json(), resp[1].json()]})
+    // .then((resp) => { return this.setState(
+    //     {subscriptions: resp[0], yourSubscriptions: resp[1].subscriptions})
+    //     })
+    // }
+
+    // componentDidMount() {
+    //     debugger
+    //     fetch(`${usersURL}/${this.props.currentUser.id}`)
+    //     .then(resp => resp.json())
+    //     .then(userData => this.setState({yourSubscriptions: userData.subscriptions}))
+    //     console.log(this.state)
+    // }
 
     addToList = (sub) => {
         console.log(sub)
@@ -84,7 +104,7 @@ class AppContainer extends React.Component {
     
     render() {
         const {subscriptions, yourSubscriptions} = this.state
-        const {handleSubscriptionSubmit, handleChange, deleteSub, addToList, removeFromList} = this
+        const {handleSubscriptionSubmit, handleChange, addToList, removeFromList} = this
     return (  
         <div className="ui container">
             <SubsForm handleSubmit={handleSubscriptionSubmit} handleChange={handleChange} />
