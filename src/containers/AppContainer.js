@@ -1,10 +1,9 @@
 import React from 'react';
-import NavBar from '../components/NavBar'
 import SubsForm from '../components/SubsForm'
 import SubsList from './SubsList'
 import YourSubs from './YourSubs'
 
-const baseURL = "http://localhost:3001/api/v1/subscriptions"
+const subsURL = "http://localhost:3001/api/v1/subscriptions"
 const userSubsURL = "http://localhost:3001/api/v1/user_subscriptions"
 const headers = {
     'Content-Type': 'application/json',
@@ -19,11 +18,11 @@ class AppContainer extends React.Component {
             cost: 0
         },
         subscriptions: [],
-        yourSubs: [],
+        yourSubscriptions: [],
       }
 
     componentDidMount() {
-        fetch(baseURL)
+        fetch(subsURL)
         .then(resp => resp.json())
         .then(subData => this.setState({subscriptions: subData}))
     }
@@ -34,24 +33,24 @@ class AppContainer extends React.Component {
             method: "POST",
             headers: headers,
             body: JSON.stringify({
-              user_id: this.props.user.id,
+              user_id: this.props.currentUser.id,
               subscription_id: sub.id
             })
           })
           .then((response) => response.json())
-        if (!this.state.yourSubs.includes(sub)) {
+        if (!this.state.yourSubscriptions.includes(sub)) {
           this.setState(prevState => (
-            {yourSubs: [...prevState.yourSubs, sub]}))
+            {yourSubscriptions: [...prevState.yourSubscriptions, sub]}))
         }
       }
     
     removeFromList = (sub) => {
-        const newSubs = this.state.yourSubs.filter(b => b !== sub)
-        this.setState({yourSubs: newSubs})
+        const newSubs = this.state.yourSubscriptions.filter(b => b !== sub)
+        this.setState({yourSubscriptions: newSubs})
       }
     
     // deleteSub = (sub) => {
-    //     fetch(`${baseURL}/${sub.id}`, {
+    //     fetch(`${subsURL}/${sub.id}`, {
     //       method: 'DELETE'
     //     })
     //     const afterDelete = this.state.subscriptions.filter(b => b !== sub)
@@ -59,7 +58,7 @@ class AppContainer extends React.Component {
         
     handleSubscriptionSubmit = event => {
         event.preventDefault()
-        fetch(baseURL, {
+        fetch(subsURL, {
           method: "POST",
           headers: headers,
           body: JSON.stringify({
@@ -84,7 +83,7 @@ class AppContainer extends React.Component {
       };
     
     render() {
-        const {subscriptions, yourSubs} = this.state
+        const {subscriptions, yourSubscriptions} = this.state
         const {handleSubscriptionSubmit, handleChange, deleteSub, addToList, removeFromList} = this
     return (  
         <div className="ui container">
@@ -93,7 +92,7 @@ class AppContainer extends React.Component {
             <SubsList subscriptions={subscriptions} handleClick={addToList} 
             />
 
-            <YourSubs subscriptions={yourSubs} handleClick={removeFromList} 
+            <YourSubs subscriptions={yourSubscriptions} handleClick={removeFromList} 
             />
         </div>
     )

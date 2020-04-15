@@ -47,7 +47,7 @@ class App extends Component {
               path="/"
               render= { (routerProps) => {
                 const loggedIn = !!this.state.auth.currentUser.id;
-                return (loggedIn ? (<div><NavBar {...routerProps} currentUser={this.state.auth.currentUser} handleLogout={this.handleLogout}/><AppContainer {...routerProps} /></div>) : <LoginContainer {...routerProps} handleLogin={this.handleLogin} />)
+                return (loggedIn ? (<div><NavBar {...routerProps} currentUser={this.state.auth.currentUser} handleLogout={this.handleLogout}/><AppContainer {...routerProps} currentUser={this.state.auth.currentUser}/></div>) : <LoginContainer {...routerProps} handleLogin={this.handleLogin} />)
               }}
             />
             {/* <AppContainer /> */}
