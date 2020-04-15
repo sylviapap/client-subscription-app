@@ -1,28 +1,28 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export default class SubsForm extends Component {
-
-    
-
-    render() {
-        return (
-            <div>
-                <form onSubmit={this.props.handleSubmit}>
-                    <label>
-                        Name:
-                        <input name="name" type="text" placeholder="Company Name"
-                        onChange={(event)=>this.props.handleName(event)}/>
-                    </label>
-                    <br />
-                    <label>
-                        Cost:
-                        <input name="cost" type="number" placeholder="0"
-                        onChange={event=>this.props.handleCost(event)}/>
-                    </label>
-                    <br/>
-                    <input name="submit" value="Enter Sub" type="submit"/>
-                </form>
-            </div>
-        )
-    }
+const SubsForm = props =>  {
+    const { handleSubmit, handleChange } = props;
+    return (
+        <div className="ui form">
+            <form onSubmit={handleSubmit}>
+                <div className="ui field">
+                <label>
+                    Company Name:
+                    <input name="company" type="text" placeholder="Company Name"
+                    onChange={handleChange}/>
+                </label>
+                </div>
+                <div className="ui field">
+                <label>
+                    Cost:
+                    <input name="cost" type="number" placeholder="0"
+                    onChange={handleChange}/>
+                </label>
+                </div>
+                <input name="submit" value="Add New Subscription" type="submit" className="ui basic purple button" />
+            </form>
+        </div>
+    )
 }
+
+export default SubsForm

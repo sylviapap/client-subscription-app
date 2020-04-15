@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import './App.css';
 import Home from './components/Home'
 import SignUp from './components/SignUp'
@@ -6,8 +7,6 @@ import Login from './components/Login'
 import NavBar from './components/NavBar'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import api from './services/api';
-
-import SubsForm from './components/SubsForm'
 
 class App extends Component {
 
@@ -22,19 +21,24 @@ class App extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem('token');
-
-    if (!!token) {
-      api.auth.getCurrentUser().then((user) => {
+    if (token) {
+      api.auth.getCurrentUser()
+        .then((user) => {
         const currentUser = { currentUser: user };
         this.setState({ auth: currentUser });
       });
     }
   }
 
+  // type localstorage in console to check
+
+  // componentWillUnmount() {
+  //   localStorage.clear();
+  // }
+
   handleLogin = (user) => {
     const currentUser = { currentUser: user };
     localStorage.setItem('token', user.token);
-
     this.setState({ auth: currentUser });
   };
 
@@ -86,42 +90,17 @@ class App extends Component {
   }      
 
   render() {
-    return (      
-      <div className="App ui container">
-        <NavBar
-          currentUser={this.state.auth.currentUser}
-          handleLogout={this.handleLogout}
-        />
-        
-        <SubsForm handleSubmit={this.handleSubmit} handleName={this.handleName} handleCost={this.handleCost} />  
-        
-        <div id="content" className="ui container">
-          <Switch>
-            <Route
-              path="/login"
-              render={(routerProps) => {
-                return <Login {...routerProps} handleLogin={this.handleLogin} />;
-              }}
-            />
-            <Route
-              path="/signup"
-              render={(routerProps) => {
-                return <SignUp {...routerProps} handleLogin={this.handleLogin} />;
-              }}
-            />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />
+    return (
+        <div id="content" className="App ui container">
             <Route
               path="/"
-              render={() => {
+              render= { (routerProps) => {
                 const loggedIn = !!this.state.auth.currentUser.id;
-
-                return loggedIn ? <Home /> : <Redirect to="/login" />;
+                return (loggedIn ? (<div><NavBar {...routerProps} currentUser={this.state.auth.currentUser} handleLogout={this.handleLogout}/><AppContainer {...routerProps} currentUser={this.state.auth.currentUser}/></div>) : <LoginContainer {...routerProps} handleLogin={this.handleLogin} />)
               }}
             />
-          </Switch>
+            {/* <AppContainer /> */}
         </div>
-      </div>
     );
   }
 }
