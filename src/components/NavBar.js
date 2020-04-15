@@ -6,9 +6,6 @@ const NavBar = props =>  {
   const loggedIn = !!currentUser.id;
     return (
       <div className="ui menu">
-        <Link to="/" className="item">
-          <div className="ui purple button">Log In</div>
-        </Link>
         {loggedIn ? (
           <div className="item">
             {`Welcome ${currentUser.username}`}
@@ -24,11 +21,7 @@ const NavBar = props =>  {
           >
             <div className="ui purple button">Log Out</div>
           </a>
-        ) : (
-          <Link to="/login" className="item">
-            <div className="ui purple button">Log In</div>
-          </Link>
-        )}
+        ) : null}
       </div>
     )
 }

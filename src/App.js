@@ -9,7 +9,7 @@ import api from './services/api';
 class App extends Component {
 
   state = {
-    user: {}
+    auth: { currentUser: {} }
   }
 
   componentDidMount() {
@@ -25,31 +25,20 @@ class App extends Component {
 
   // type localstorage in console to check
 
-  componentWillUnmount() {
-    localStorage.clear();
-  }
+  // componentWillUnmount() {
+  //   localStorage.clear();
+  // }
 
-  handleSubscriptionSubmit = event => {
-    event.preventDefault()
-    
-    fetch("http://localhost:3001/api/v1/subscriptions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        company: this.state.company,
-        cost: this.state.cost
-      })
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Successful post');
-    })
-    .catch((error) => {
-      console.error('Error while post');
-    });
-  }
+  handleLogin = (user) => {
+    const currentUser = { currentUser: user };
+    localStorage.setItem('token', user.token);
+    this.setState({ auth: currentUser });
+  };
+
+  handleLogout = () => {
+    localStorage.removeItem('token');
+    this.setState({ auth: { currentUser: {} } });
+  };
 
   render() {
     return (
@@ -58,7 +47,7 @@ class App extends Component {
               path="/"
               render= { (routerProps) => {
                 const loggedIn = !!this.state.auth.currentUser.id;
-                return (loggedIn ? (<div><NavBar {...routerProps} currentUser={this.state.auth.currentUser} handleLogout={this.handleLogout}/><AppContainer {...routerProps} /></div>) : <LoginContainer {...routerProps} handleLogin={this.handleLogin} handleLogout={this.handleLogout} />)
+                return (loggedIn ? (<div><NavBar {...routerProps} currentUser={this.state.auth.currentUser} handleLogout={this.handleLogout}/><AppContainer {...routerProps} /></div>) : <LoginContainer {...routerProps} handleLogin={this.handleLogin} />)
               }}
             />
             {/* <AppContainer /> */}

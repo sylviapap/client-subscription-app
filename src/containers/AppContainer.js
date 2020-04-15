@@ -56,7 +56,7 @@ class AppContainer extends React.Component {
     //     })
     //     const afterDelete = this.state.subscriptions.filter(b => b !== sub)
     //     this.setState({subscriptions: afterDelete})      }
-
+        
     handleSubscriptionSubmit = event => {
         event.preventDefault()
         fetch(baseURL, {

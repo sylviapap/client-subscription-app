@@ -1,10 +1,10 @@
 import React from 'react';
 
-const SignUp = props =>  {
-  const { fields, loginOrSignUp, handleChange } = props;
+const AuthForm = props =>  {
+  const { fields, handleSubmit, handleChange } = props;
     return (
       <div className="ui form">
-        <form onSubmit={loginOrSignUp}>
+        <form onSubmit={handleSubmit}>
           <div className="ui field">
             <label>Username</label>
             <input
@@ -25,11 +25,11 @@ const SignUp = props =>  {
             />
           </div>
           <button type="submit" className="ui basic purple button">
-            Sign Up!
+            Submit
           </button>
         </form>
       </div>
       );
     }
   
-  export default SignUp;
+  export default AuthForm;
