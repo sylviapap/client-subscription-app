@@ -1,7 +1,6 @@
 import React from "react";
 
-const SubCard = props => {
-  console.log(props)
+const YourSubCard = props => {
   const {id, company, cost } = props.sub
   const {handleClick} = props
   return (
@@ -33,4 +32,4 @@ const SubCard = props => {
   );
 };
 
-export default SubCard;
+export default YourSubCard;

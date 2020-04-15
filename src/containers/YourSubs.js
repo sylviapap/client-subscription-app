@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SubCard from "../components/SubCard.js"
+import YourSubCard from "../components/YourSubCard.js"
 
 class YourSubs extends Component {
 
@@ -10,7 +10,7 @@ class YourSubs extends Component {
           <p>Your Subscriptions</p>
         <div className="ui four column grid">
           <div className="row">
-            {subscriptions.map(sub => <SubCard sub={sub} key={sub.id} handleClick={handleClick}/>)}
+            {subscriptions.map(userSub => <YourSubCard sub={userSub} key={userSub.id} handleClick={handleClick}/>)}
           </div>
         </div>
       </div>

@@ -1,15 +1,9 @@
 import React from 'react';
-import { Route, Switch, Redirect, Link } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import AuthForm from '../components/AuthForm'
 import api from '../services/api';
 
 const API_ROOT = `http://localhost:3001/api/v1`;
-const token = localStorage.getItem('token');
-const headers = {
-  'Content-Type': 'application/json',
-  Accept: 'application/json',
-  Authorization: token
-};
 
 class LoginContainer extends React.Component {
     state = {
@@ -44,6 +38,8 @@ class LoginContainer extends React.Component {
             if (res.error) {
               this.setState({ error: true });
             } else {
+              console.log(res)
+              this.props.handleSignUp(res);
               this.props.history.push('/');
             }}
         )
@@ -55,6 +51,7 @@ class LoginContainer extends React.Component {
           if (res.error) {
             this.setState({ error: true });
           } else {
+            console.log(res)
             this.props.handleLogin(res);
             this.props.history.push('/');
           }
