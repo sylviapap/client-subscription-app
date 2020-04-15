@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import './App.css';
 import AppContainer from './containers/AppContainer'
 import LoginContainer from './containers/LoginContainer';
-import SignUp from './components/SignUp'
+import NavBar from './components/NavBar';
 import api from './services/api';
 
 class App extends Component {
@@ -18,8 +18,7 @@ class App extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem('token');
-
-    if (!!token && !!api.auth.getCurrentUser()) {
+    if (token) {
       api.auth.getCurrentUser()
         .then((user) => {
         const currentUser = { currentUser: user };
@@ -28,8 +27,10 @@ class App extends Component {
     }
   }
 
+  // type localstorage in console to check
+
   componentWillUnmount() {
-    localStorage.removeItem('token');
+    localStorage.clear();
   }
 
   handleSubscriptionSubmit = event => {
@@ -82,10 +83,9 @@ class App extends Component {
         <div id="content" className="App ui container">
             <Route
               path="/"
-              render= { () => {
-                const currentUser = this.state.auth.currentUser
-                const loggedIn = !!currentUser.id;
-                return (loggedIn ? <AppContainer /> : <LoginContainer handleLogin={this.handleLogin} handleLogout={this.handleLogout} />)
+              render= { (routerProps) => {
+                const loggedIn = !!this.state.auth.currentUser.id;
+                return (loggedIn ? (<div><NavBar {...routerProps} currentUser={this.state.auth.currentUser} handleLogout={this.handleLogout}/><AppContainer {...routerProps} /></div>) : <LoginContainer {...routerProps} handleLogin={this.handleLogin} handleLogout={this.handleLogout} />)
               }}
             />
         </div>

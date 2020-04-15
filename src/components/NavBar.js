@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
 const NavBar = props =>  {
-  const { currentUser, history, handleLogout } = props;
+  const { currentUser, handleLogout } = props;
   const loggedIn = !!currentUser.id;
     return (
       <div className="ui menu">
@@ -17,7 +17,7 @@ const NavBar = props =>  {
         {loggedIn ? (
           <a
             onClick={() => {
-              history.push('/login');
+              props.history.push('/');
               handleLogout();
             }}
             className="item"

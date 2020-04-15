@@ -14,10 +14,6 @@ class AppContainer extends React.Component {
     render() {
     return (  
         <div className="ui container">
-            <NavBar
-                currentUser={this.state.auth.currentUser}
-                handleLogout={this.handleLogout}
-                />
             <SubsForm handleSubmit={this.handleSubmit} handleName={this.handleName} handleCost={this.handleCost} />
         </div>
     )
