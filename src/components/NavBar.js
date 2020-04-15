@@ -12,15 +12,10 @@ const NavBar = props =>  {
           </div>
         ) : null}
         {loggedIn ? (
-          <a
-            onClick={() => {
+            <div className="ui purple button" onClick={() => {
               props.history.push('/');
               handleLogout();
-            }}
-            className="item"
-          >
-            <div className="ui purple button">Log Out</div>
-          </a>
+            }}>Log Out</div>
         ) : null}
       </div>
     )
