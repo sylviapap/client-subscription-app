@@ -1,10 +1,10 @@
 import React from 'react';
 
 const SignUp = props =>  {
-  const { fields, handleSubmit, handleChange } = props;
+  const { fields, handleSignUpSubmit, handleChange } = props;
     return (
       <div className="ui form">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSignUpSubmit}>
           <div className="ui field">
             <label>Username</label>
             <input
