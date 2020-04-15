@@ -48,12 +48,10 @@ class App extends Component {
         cost: event.target.value
     })
   } 
-  
-  handleLogin = (user) => {
-    const currentUser = { currentUser: user };
-    this.setState({ auth: currentUser });
-  };
 
+  setUser = (user) => {
+    this.setState({ auth: { currentUser: user } })
+  }
 
   render() {
     return (
@@ -61,7 +59,7 @@ class App extends Component {
             <Route
               path="/"
               render= { () => {
-                return (!this.state.auth.currentUser ? <AppContainer /> : <LoginContainer handleLogin={this.handleLogin} />)
+                return (!this.state.auth.currentUser ? <AppContainer /> : <LoginContainer setUser={this.setUser}/>)
               }}
             />
         </div>

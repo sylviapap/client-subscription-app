@@ -20,9 +20,8 @@ class LoginContainer extends React.Component {
         this.setState({ fields: newFields });
       };
 
-    handleSignUpSubmit = (e) => {
+    loginOrSignUp = (e) => {
         e.preventDefault();
-    
         const API_ROOT = `http://localhost:3001/api/v1`;
         fetch(`${API_ROOT}/users/`, {
             method: 'POST',
@@ -31,7 +30,7 @@ class LoginContainer extends React.Component {
             body: JSON.stringify({ user: {username: this.state.fields.username, password: this.state.fields.password} })
         })
         .then(res => res.json())
-        .then(user => this.props.handleLogin(user))
+        .then(user => this.props.setUser(user))
     };
     
     render() {
@@ -39,7 +38,7 @@ class LoginContainer extends React.Component {
             <div className="ui container">
                 {this.state.error ? <h1>Error, please try again</h1> : null}
                 <Switch>
-                    <Route exact path="/" render={(routerProps) => <SignUp {...routerProps} fields={this.state.fields} handleSignUpSubmit={this.handleSignUpSubmit} handleChange={this.handleChange}/>} />
+                    <Route exact path="/" render={(routerProps) => <SignUp {...routerProps} fields={this.state.fields} loginOrSignUp={this.loginOrSignUp} handleChange={this.handleChange}/>} />
                 </Switch>
             </div>
         )
