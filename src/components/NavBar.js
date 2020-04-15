@@ -8,7 +8,7 @@ const NavBar = props =>  {
       <div className="ui menu">
         {loggedIn ? (
           <div className="item">
-            {`Welcome ${currentUser.username}`}
+            {`Welcome, ${currentUser.username}`}
           </div>
         ) : null}
         {loggedIn ? (
