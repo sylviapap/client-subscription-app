@@ -4,7 +4,6 @@ import './App.css';
 import AppContainer from './containers/AppContainer'
 import LoginContainer from './containers/LoginContainer';
 import SignUp from './components/SignUp'
-import api from './services/api';
 
 class App extends Component {
 
@@ -14,22 +13,6 @@ class App extends Component {
     auth: { 
       currentUser: {} 
     }
-  }
-
-  componentDidMount() {
-    const token = localStorage.getItem('token');
-
-    if (!!token && !!api.auth.getCurrentUser()) {
-      api.auth.getCurrentUser()
-        .then((user) => {
-        const currentUser = { currentUser: user };
-        this.setState({ auth: currentUser });
-      });
-    }
-  }
-
-  componentWillUnmount() {
-    localStorage.removeItem('token');
   }
 
   handleSubscriptionSubmit = event => {
@@ -68,14 +51,9 @@ class App extends Component {
   
   handleLogin = (user) => {
     const currentUser = { currentUser: user };
-    localStorage.setItem('token', user.token);
     this.setState({ auth: currentUser });
   };
 
-  handleLogout = () => {
-    localStorage.removeItem('token');
-    this.setState({ auth: { currentUser: {} } });
-  };
 
   render() {
     return (
@@ -83,9 +61,7 @@ class App extends Component {
             <Route
               path="/"
               render= { () => {
-                const currentUser = this.state.auth.currentUser
-                const loggedIn = !!currentUser.id;
-                return (loggedIn ? <AppContainer /> : <LoginContainer handleLogin={this.handleLogin} handleLogout={this.handleLogout} />)
+                return (!this.state.auth.currentUser ? <AppContainer /> : <LoginContainer handleLogin={this.handleLogin} />)
               }}
             />
         </div>

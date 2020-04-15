@@ -1,8 +1,6 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import SignUp from '../components/SignUp'
-import Login from '../components/Login'
-import api from '../services/api'
 
 class LoginContainer extends React.Component {
 
@@ -33,22 +31,8 @@ class LoginContainer extends React.Component {
             body: JSON.stringify({ user: {username: this.state.fields.username, password: this.state.fields.password} })
         })
         .then(res => res.json())
-        .then((res) =>
-          this.props.handleLoginSubmit(res));
+        .then(user => this.props.handleLogin(user))
     };
-
-    handleLoginSubmit = (e) => {
-        e.preventDefault();
-    
-        api.auth.login(this.state.fields.username, this.state.fields.password).then((res) => {
-          if (res.error) {
-            this.setState({ error: true });
-          } else {
-            this.props.handleLogin(res);
-            this.props.history.push('/');
-          }
-        });
-      };
     
     render() {
         return (
