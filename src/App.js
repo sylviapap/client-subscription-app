@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Home from './components/Home'
-import SignUp from './components/Signup'
+import SignUp from './components/SignUp'
 import Login from './components/Login'
 import NavBar from './components/NavBar'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
@@ -14,6 +14,7 @@ class App extends Component {
   state = {
     company: "",
     cost: 0,
+    recentSub: "",
     auth: { 
       currentUser: {} 
     }
@@ -56,12 +57,20 @@ class App extends Component {
       })
     })
     .then((response) => response.json())
-    .then((data) => {
-      console.log('Successful post');
+    .then((sub) => {
+      this.setState({recentSub: sub})
+      console.log(this.state.auth.currentUser)
+    })    
+
+    fetch("http://localhost:3001/api/v1/user_subscriptions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({      
+        subscription_id: this.state.recentSub.id
+      })
     })
-    .catch((error) => {
-      console.error('Error while post');
-    });
   }
 
   handleName = event => {
