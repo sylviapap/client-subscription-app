@@ -38,6 +38,8 @@ class LoginContainer extends React.Component {
             if (res.error) {
               this.setState({ error: true });
             } else {
+              console.log(res)
+              this.props.handleSignUp(res);
               this.props.history.push('/');
             }}
         )
@@ -49,6 +51,7 @@ class LoginContainer extends React.Component {
           if (res.error) {
             this.setState({ error: true });
           } else {
+            console.log(res)
             this.props.handleLogin(res);
             this.props.history.push('/');
           }

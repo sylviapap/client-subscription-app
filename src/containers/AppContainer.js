@@ -58,11 +58,20 @@ class AppContainer extends React.Component {
             })
           })
           .then((response) => response.json())
-        if (!this.state.yourSubscriptions.includes(sub)) {
-          this.setState(prevState => (
-            {yourSubscriptions: [...prevState.yourSubscriptions, sub]}))
-        }
+          // .then(data => {console.log(data)})
+          .then((data) => { if (!this.state.yourSubscriptions.includes(data.subscription)) {
+            return this.setState(prevState => ({
+              yourSubscriptions: [...prevState.yourSubscriptions, data.subscription]}
+            ))}
+          })
+        
       }
+
+    // componentDidUpdate(prevProps) {
+    //     if (this.props.userID !== prevProps.userID) {
+    //       this.fetchData(this.props.userID);
+    //     }
+    //   }
     
     removeFromList = (sub) => {
         const newSubs = this.state.yourSubscriptions.filter(b => b !== sub)
@@ -77,7 +86,8 @@ class AppContainer extends React.Component {
     //     this.setState({subscriptions: afterDelete})      }
         
     handleSubscriptionSubmit = event => {
-        event.preventDefault()
+        event.preventDefault();
+        console.log(event, "sub form submitted")
         fetch(subsURL, {
           method: "POST",
           headers: headers,
@@ -105,6 +115,7 @@ class AppContainer extends React.Component {
     render() {
         const {subscriptions, yourSubscriptions} = this.state
         const {handleSubscriptionSubmit, handleChange, addToList, removeFromList} = this
+        console.log(yourSubscriptions)
     return (  
         <div className="ui container">
             <SubsForm handleSubmit={handleSubscriptionSubmit} handleChange={handleChange} />

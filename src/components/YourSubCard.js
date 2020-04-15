@@ -1,7 +1,7 @@
 import React from "react";
 
 const YourSubCard = props => {
-  const {id, company, cost } = props.userSub
+  const {id, company, cost } = props.sub
   const {handleClick} = props
   return (
     <div className="ui column">
@@ -32,4 +32,4 @@ const YourSubCard = props => {
   );
 };
 
-export default SubCard;
+export default YourSubCard;

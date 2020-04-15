@@ -23,9 +23,9 @@ class App extends Component {
     }
   }
 
-  componentWillUnmount() {
-    localStorage.clear();
-  }
+  // componentWillUnmount() {
+  //   localStorage.clear();
+  // }
 
   handleLogin = (user) => {
     const currentUser = { currentUser: user };
@@ -33,8 +33,14 @@ class App extends Component {
     this.setState({ auth: currentUser });
   };
 
+  handleSignUp = (resp) => {
+    const currentUser = { currentUser: resp.user };
+    localStorage.setItem('token', resp.token);
+    this.setState({ auth: currentUser });
+  }
+
   handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.clear();    
     this.setState({ auth: { currentUser: {} } });
   };
 
@@ -51,7 +57,7 @@ class App extends Component {
                 
                 : 
                 
-                <LoginContainer {...routerProps} handleLogin={this.handleLogin} />)
+                <LoginContainer {...routerProps} handleLogin={this.handleLogin} handleSignUp={this.handleSignUp}/>)
               }}
             />
         </div>
