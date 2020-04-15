@@ -4,6 +4,7 @@ import SubsList from './SubsList'
 import YourSubs from './YourSubs'
 
 const subsURL = "http://localhost:3001/api/v1/subscriptions"
+// const usersURL = "http://localhost:3001/api/v1/users"
 const userSubsURL = "http://localhost:3001/api/v1/user_subscriptions"
 const headers = {
     'Content-Type': 'application/json',
@@ -24,8 +25,27 @@ class AppContainer extends React.Component {
     componentDidMount() {
         fetch(subsURL)
         .then(resp => resp.json())
+        // .then(resp => console.log(resp))
         .then(subData => this.setState({subscriptions: subData}))
     }
+
+    // componentDidMount() {
+    //     Promise.all([
+    //     fetch(subsURL), 
+    //     fetch(`${usersURL}/${this.props.currentUser.id}`)
+    // ]).then((resp) => { return [resp[0].json(), resp[1].json()]})
+    // .then((resp) => { return this.setState(
+    //     {subscriptions: resp[0], yourSubscriptions: resp[1].subscriptions})
+    //     })
+    // }
+
+    // componentDidMount() {
+    //     debugger
+    //     fetch(`${usersURL}/${this.props.currentUser.id}`)
+    //     .then(resp => resp.json())
+    //     .then(userData => this.setState({yourSubscriptions: userData.subscriptions}))
+    //     console.log(this.state)
+    // }
 
     addToList = (sub) => {
         console.log(sub)
@@ -38,11 +58,20 @@ class AppContainer extends React.Component {
             })
           })
           .then((response) => response.json())
-        if (!this.state.yourSubscriptions.includes(sub)) {
-          this.setState(prevState => (
-            {yourSubscriptions: [...prevState.yourSubscriptions, sub]}))
-        }
+          // .then(data => {console.log(data)})
+          .then((data) => { if (!this.state.yourSubscriptions.includes(data.subscription)) {
+            return this.setState(prevState => ({
+              yourSubscriptions: [...prevState.yourSubscriptions, data.subscription]}
+            ))}
+          })
+        
       }
+
+    // componentDidUpdate(prevProps) {
+    //     if (this.props.userID !== prevProps.userID) {
+    //       this.fetchData(this.props.userID);
+    //     }
+    //   }
     
     removeFromList = (sub) => {
         const newSubs = this.state.yourSubscriptions.filter(b => b !== sub)
@@ -58,7 +87,8 @@ class AppContainer extends React.Component {
       }
         
     handleSubscriptionSubmit = event => {
-        event.preventDefault()
+        event.preventDefault();
+        console.log(event, "sub form submitted")
         fetch(subsURL, {
           method: "POST",
           headers: headers,
@@ -85,7 +115,8 @@ class AppContainer extends React.Component {
     
     render() {
         const {subscriptions, yourSubscriptions} = this.state
-        const {handleSubscriptionSubmit, handleChange, deleteSub, addToList, removeFromList} = this
+        const {handleSubscriptionSubmit, handleChange, addToList, removeFromList} = this
+        console.log(yourSubscriptions)
     return (  
         <div className="ui container">
             <SubsForm handleSubmit={handleSubscriptionSubmit} handleChange={handleChange} />

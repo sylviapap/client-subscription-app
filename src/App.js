@@ -30,8 +30,6 @@ class App extends Component {
     }
   }
 
-  // type localstorage in console to check
-
   // componentWillUnmount() {
   //   localStorage.clear();
   // }
@@ -42,8 +40,14 @@ class App extends Component {
     this.setState({ auth: currentUser });
   };
 
+  handleSignUp = (resp) => {
+    const currentUser = { currentUser: resp.user };
+    localStorage.setItem('token', resp.token);
+    this.setState({ auth: currentUser });
+  }
+
   handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.clear();    
     this.setState({ auth: { currentUser: {} } });
   };
 
@@ -95,14 +99,16 @@ class App extends Component {
             <Route
               path="/"
               render= { (routerProps) => {
+                
                 const loggedIn = !!this.state.auth.currentUser.id;
-                return (loggedIn ? (<div>
-                  <NavBar {...routerProps} currentUser={this.state.auth.currentUser} handleLogout={this.handleLogout}/>
-                  <AppContainer {...routerProps} currentUser={this.state.auth.currentUser}/></div>) : 
-                  <LoginContainer {...routerProps} handleLogin={this.handleLogin} />)
+
+                return (loggedIn ? (<div><NavBar {...routerProps} currentUser={this.state.auth.currentUser} handleLogout={this.handleLogout}/><AppContainer {...routerProps} currentUser={this.state.auth.currentUser}/></div>) 
+                
+                : 
+                
+                <LoginContainer {...routerProps} handleLogin={this.handleLogin} handleSignUp={this.handleSignUp}/>)
               }}
             />
-            {/* <AppContainer /> */}
         </div>
     );
   }
