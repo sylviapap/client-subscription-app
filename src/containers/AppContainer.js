@@ -49,12 +49,13 @@ class AppContainer extends React.Component {
         this.setState({yourSubscriptions: newSubs})
       }
     
-    // deleteSub = (sub) => {
-    //     fetch(`${subsURL}/${sub.id}`, {
-    //       method: 'DELETE'
-    //     })
-    //     const afterDelete = this.state.subscriptions.filter(b => b !== sub)
-    //     this.setState({subscriptions: afterDelete})      }
+    deleteSub = (subId) => {
+        fetch(`${subsURL}/${subId}`, {
+          method: 'DELETE'
+        })
+        const afterDelete = this.state.subscriptions.filter(b => b.id !== subId)
+        this.setState({subscriptions: afterDelete})      
+      }
         
     handleSubscriptionSubmit = event => {
         event.preventDefault()
@@ -89,7 +90,7 @@ class AppContainer extends React.Component {
         <div className="ui container">
             <SubsForm handleSubmit={handleSubscriptionSubmit} handleChange={handleChange} />
 
-            <SubsList subscriptions={subscriptions} handleClick={addToList} 
+            <SubsList subscriptions={subscriptions} handleClick={addToList} deleteSub={this.deleteSub}
             />
 
             <YourSubs subscriptions={yourSubscriptions} handleClick={removeFromList} 

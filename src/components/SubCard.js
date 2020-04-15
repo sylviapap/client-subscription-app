@@ -22,7 +22,7 @@ const SubCard = props => {
           <p>
             <button
             className="ui icon button teal"
-            onClick={() => handleClick(props.sub)
+            onClick={() => this.prop.deleteSub(id)
             }
             ><i className="clipboard list icon"></i></button>
             </p>

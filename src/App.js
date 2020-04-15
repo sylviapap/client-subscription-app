@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+
 import './App.css';
 import Home from './components/Home'
-import SignUp from './components/SignUp'
-import Login from './components/Login'
 import NavBar from './components/NavBar'
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import api from './services/api';
+import AppContainer from './containers/AppContainer'
+import LoginContainer from './containers/LoginContainer'
 
 class App extends Component {
 
@@ -96,7 +96,10 @@ class App extends Component {
               path="/"
               render= { (routerProps) => {
                 const loggedIn = !!this.state.auth.currentUser.id;
-                return (loggedIn ? (<div><NavBar {...routerProps} currentUser={this.state.auth.currentUser} handleLogout={this.handleLogout}/><AppContainer {...routerProps} currentUser={this.state.auth.currentUser}/></div>) : <LoginContainer {...routerProps} handleLogin={this.handleLogin} />)
+                return (loggedIn ? (<div>
+                  <NavBar {...routerProps} currentUser={this.state.auth.currentUser} handleLogout={this.handleLogout}/>
+                  <AppContainer {...routerProps} currentUser={this.state.auth.currentUser}/></div>) : 
+                  <LoginContainer {...routerProps} handleLogin={this.handleLogin} />)
               }}
             />
             {/* <AppContainer /> */}

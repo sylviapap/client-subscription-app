@@ -10,7 +10,7 @@ class SubsList extends Component {
         <p>All Subscriptions</p>
       <div className="ui four column grid">
         <div className="row">
-          {subscriptions.map(sub => <SubCard sub={sub} key={sub.id} handleClick={handleClick} />)}
+          {subscriptions.map(sub => <SubCard sub={sub} key={sub.id} handleClick={handleClick} deleteSub={this.props.deleteSub} />)}
         </div>
       </div>
       </div>

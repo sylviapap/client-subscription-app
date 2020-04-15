@@ -7,12 +7,12 @@ const headers = {
 };
 
 const login = (username, password) => {
-    return fetch(`${API_ROOT}/auth/`, {
-      method: 'POST',
-      headers: headers,
-      body: JSON.stringify({ username, password })
-    }).then(res => res.json());
-  };
+  return fetch(`${API_ROOT}/auth/`, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify({ user: {username, password} })
+  }).then(res => res.json());
+};
   
 const getCurrentUser = () => {
     return fetch(`${API_ROOT}/current_user`, {
