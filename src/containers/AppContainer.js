@@ -32,12 +32,14 @@ class AppContainer extends React.Component {
       }
     
       handleName = event => {
+        event.preventDefault()
         this.setState({
             company: event.target.value
         })
       }
     
       handleCost = event => {
+        event.preventDefault()
         this.setState({
             cost: event.target.value
         })
@@ -48,7 +50,7 @@ class AppContainer extends React.Component {
         <div className="ui container">
             <NavBar
                 />
-            <SubsForm handleSubmit={this.handleSubmit} handleName={this.handleName} handleCost={this.handleCost} />
+            <SubsForm handleSubmit={this.handleSubscriptionSubmit} handleName={this.handleName} handleCost={this.handleCost} />
         </div>
     )
 }

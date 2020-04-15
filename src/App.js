@@ -7,13 +7,11 @@ import LoginContainer from './containers/LoginContainer';
 class App extends Component {
 
   state = {
-    auth: { 
-      currentUser: {} 
-    }
+    user: {}
   }
 
   setUser = (user) => {
-    this.setState({ auth: { currentUser: user } })
+    this.setState({ user: user })
   }
 
   render() {
@@ -22,7 +20,7 @@ class App extends Component {
             <Route
               path="/"
               render= { () => {
-                return (this.state.auth.currentUser.id ? <AppContainer /> : <LoginContainer setUser={this.setUser}/>)
+                return (this.state.user.id ? <AppContainer /> : <LoginContainer setUser={this.setUser}/>)
               }}
             />
         </div>
