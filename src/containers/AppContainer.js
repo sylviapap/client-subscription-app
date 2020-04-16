@@ -2,6 +2,7 @@ import React from 'react';
 import SubsForm from '../components/SubsForm'
 import SubsList from './SubsList'
 import YourSubs from './YourSubs'
+import UserSubs from './UserSubs'
 
 const subscriptionsURL = "http://localhost:3001/api/v1/subscriptions"
 const usersURL = "http://localhost:3001/api/v1/users"
@@ -21,11 +22,12 @@ class AppContainer extends React.Component {
             end_date: "",
         },
         clicked: false,
-        yourSubscriptions: []
+        yourSubscriptions: [],
+        userSubscriptions: []
       }
 
     componentDidMount() {
-      this.setState({yourSubscriptions: this.props.currentUser.subscriptions
+      this.setState({yourSubscriptions: this.props.currentUser.subscriptions, userSubscriptions: this.props.currentUser.user_subscriptions
       })
     }
 
@@ -67,11 +69,10 @@ class AppContainer extends React.Component {
     
     removeFromList = (sub) => {
       console.log(sub, "delete this sub")
-        const newSubs = this.state.yourSubscriptions.filter(b => b !== sub)
-        this.setState({yourSubscriptions: newSubs})
-        this.patch()
-        // fetch(`${userSubsURL}/${id}`, 
-        //   {method: 'DELETE'})
+        // const newSubs = this.state.yourSubscriptions.filter(b => b !== sub)
+        // this.setState({yourSubscriptions: newSubs})
+        fetch(`${userSubsURL}/${sub.id}`, 
+          {method: 'DELETE'})
       }
         
     handleSubscriptionSubmit = event => {
@@ -103,7 +104,7 @@ class AppContainer extends React.Component {
     
     render() {
       const {handleSubscriptionSubmit, handleChange, addToList, removeFromList, hideForm} = this
-      const {yourSubscriptions} = this.state
+      const {yourSubscriptions, userSubscriptions} = this.state
       const {subscriptions} = this.props
 
       return (  
@@ -118,6 +119,9 @@ class AppContainer extends React.Component {
             }
 
             <YourSubs subscriptions={yourSubscriptions} handleClick={removeFromList} 
+            />
+
+            <UserSubs subscriptions={userSubscriptions} handleClick={removeFromList} 
             />
         </div>
     )
