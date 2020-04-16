@@ -5,7 +5,7 @@ class SubsList extends Component {
 
   render() {
     const {subscriptions, handleClick} = this.props
-    //console.log(subscriptions.length)
+
     return (
       <div className="ui segment violet">
         <h2>Suggested Subscriptions</h2>
