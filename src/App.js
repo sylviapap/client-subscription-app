@@ -87,7 +87,6 @@ class App extends Component {
             render= { (routerProps) => {
               
               const loggedIn = !!this.state.auth.id;
-              console.log(this.state.auth.id)
 
               return (loggedIn ? (<div><NavBar {...routerProps} currentUser={this.state.auth} handleLogout={this.handleLogout}/><AppContainer {...routerProps} currentUser={this.state.auth} subscriptions={this.state.subscriptions}/></div>) 
               

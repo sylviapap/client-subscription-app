@@ -40,22 +40,30 @@ class AppContainer extends React.Component {
     }
 
     addToList = (sub) => {
+      console.log("This sub is being added", sub)
+      console.log(!this.state.userSubscriptions.filter(s => s.subscription_id === sub.id).length)
+      if (!this.state.userSubscriptions.filter(s => s.subscription_id === sub.id).length) {
         fetch(userSubsURL, {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify({
-              user_id: this.props.currentUser.id,
-              subscription_id: sub.id
-            })
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify({
+            user_id: this.props.currentUser.id,
+            subscription_id: sub.id
           })
-          .then((response) => response.json())
-          // .then(resp => console.log(resp))
-          .then((data) => { if (!this.state.userSubscriptions.includes(data)) {
-            return this.setState(prevState => ({
-              userSubscriptions: [...prevState.userSubscriptions, data]}
-            ))}
-          })
+        })
+        .then(response => response.json())
+        .then(data => this.setState(prevState => ({userSubscriptions: [...prevState.userSubscriptions, data]})))
       }
+      }
+          // .then(data => console.log(!!this.state.userSubscriptions.filter(s => s.subscription_id === data.subscription_id)))
+          // .then((data) => { if (!!this.state.userSubscriptions.filter(s => s.subscription_id === data.subscription_id)) {
+          //   return this.setState(prevState => ({
+          //     userSubscriptions: [...prevState.userSubscriptions, data]}
+          //   ))}
+          // })
+
+
+      //{id: 78, user_id: 89, subscription_id: 41, start_date: null, end_date: null, …}
 
     editUserSub = (sub) => {
       fetch(`${userSubsURL}/${sub.id}`, {
