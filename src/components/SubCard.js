@@ -1,6 +1,6 @@
 import React from "react";
 
-const SubCard = props => {  
+const SubCard = props => {
   const {id, company, cost } = props.sub
   const {handleClick} = props
   return (
