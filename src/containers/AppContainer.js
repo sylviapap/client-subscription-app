@@ -22,6 +22,7 @@ class AppContainer extends React.Component {
         },
         subscriptions: [],
         yourSubscriptions: [],
+        clicked: false
       }
 
     componentDidMount() {
@@ -48,6 +49,12 @@ class AppContainer extends React.Component {
     //     .then(userData => this.setState({yourSubscriptions: userData.subscriptions}))
     //     console.log(this.state)
     // }
+
+    hideForm = () => {
+      this.setState({
+        clicked: !this.state.clicked
+      })
+    }
 
     addToList = (sub) => {
         console.log(sub)
@@ -117,14 +124,18 @@ class AppContainer extends React.Component {
     
     render() {
         const {subscriptions, yourSubscriptions} = this.state
-        const {handleSubscriptionSubmit, handleChange, addToList, removeFromList} = this
+        const {handleSubscriptionSubmit, handleChange, addToList, removeFromList, hideForm} = this
         //console.log(yourSubscriptions)
     return (  
         <div className="ui container">            
             <SubsList subscriptions={subscriptions} handleClick={addToList}
             />
-
-            <SubsForm handleSubmit={handleSubscriptionSubmit} handleChange={handleChange} />
+            <h1 onClick={this.hideForm} className="formHeader">Add To Your Subscription List</h1>
+            {this.state.clicked ? <SubsForm hideForm={hideForm} 
+            handleSubmit={handleSubscriptionSubmit} handleChange={handleChange} />
+            :null
+            }
+            
 
             <YourSubs subscriptions={yourSubscriptions} handleClick={removeFromList} 
             />

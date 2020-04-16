@@ -4,8 +4,7 @@ const SubsForm = props =>  {
     const { handleSubmit, handleChange } = props;
     return (
         <div className="ui form">
-            <form onSubmit={handleSubmit}>
-                <h1>Add To Your Subscription List</h1>
+            <form onSubmit={handleSubmit}>                
                 <div className="ui field">
                 <label>
                     Company Name:
