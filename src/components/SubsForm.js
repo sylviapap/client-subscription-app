@@ -1,23 +1,23 @@
 import React from 'react'
 
 const SubsForm = props =>  {
-    const { handleSubmit, handleChange } = props;
+    const { handleSubmit, handleChange, subs } = props;
     return (
         <div className="ui form">
             <form onSubmit={handleSubmit}>                
-                <div className="ui field">
-                <label>
-                    Company Name:
-                    <input name="company" type="text" placeholder="Company Name"
-                    onChange={handleChange}/>
+            <label>
+                Company:
                 </label>
+                <div className="menu">
+                <select>
+                    {subs.map(sub =>                             
+                        <option value={sub.company}>{sub.company}</option>
+                        )}
+                </select>
+                <input name="sub" type="submit" value="Submit" placeholder="Company Name"
+                onChange={handleChange}/>
                 </div>
                 <div className="ui field">
-                <label>
-                    Cost:
-                    <input name="cost" type="number" placeholder="0"
-                    onChange={handleChange}/>
-                </label>
                 <label>
                     Start Date:
                     <input name="Start Date" type="date"

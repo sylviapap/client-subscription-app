@@ -14,15 +14,10 @@ class App extends Component {
     company: "",
     cost: 0,
     recentSub: "",
-    auth: {},
-    subscriptions: []
-  }
+    auth: {}
+    }
 
   componentDidMount() {
-    fetch(subscriptionsURL)
-      .then(resp => resp.json())
-      .then(subData => this.setState({subscriptions: subData}))
-
     const token = localStorage.getItem('token');
     if (token) {
       api.auth.getCurrentUser()

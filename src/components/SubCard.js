@@ -23,7 +23,7 @@ const SubCard = props => {
             <button
             className="ui icon button teal"
             onClick={() => handleClick(props.sub)}
-            >Add<i className="thumbtack icon"></i></button>
+            >Add<i className="plus icon"></i></button>
             </p>
         </div>
       </div>

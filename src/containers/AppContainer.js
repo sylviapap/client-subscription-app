@@ -1,7 +1,6 @@
 import React from 'react';
 import SubsForm from '../components/SubsForm'
 import SubsList from './SubsList'
-import YourSubs from './YourSubs'
 import UserSubs from './UserSubs'
 
 const subscriptionsURL = "http://localhost:3001/api/v1/subscriptions"
@@ -20,14 +19,18 @@ class AppContainer extends React.Component {
             cost: 0,
             start_date: "",
             end_date: "",
+            sub: ""
         },
         clicked: false,
-        yourSubscriptions: [],
+        subscriptions: [],
         userSubscriptions: []
       }
 
     componentDidMount() {
-      this.setState({yourSubscriptions: this.props.currentUser.subscriptions, userSubscriptions: this.props.currentUser.user_subscriptions
+      fetch(subscriptionsURL)
+        .then(resp => resp.json())
+        .then(subData => this.setState({subscriptions: subData}))
+      this.setState({userSubscriptions: this.props.currentUser.user_subscriptions
       })
     }
 
@@ -48,19 +51,19 @@ class AppContainer extends React.Component {
           })
           .then((response) => response.json())
           // .then(resp => console.log(resp))
-          .then((data) => { if (!this.state.yourSubscriptions.includes(data.subscription)) {
+          .then((data) => { if (!this.state.userSubscriptions.includes(data)) {
             return this.setState(prevState => ({
-              yourSubscriptions: [...prevState.yourSubscriptions, data.subscription]}
+              userSubscriptions: [...prevState.userSubscriptions, data]}
             ))}
           })
       }
 
-    patch = () => {
-      fetch(`${usersURL}/${this.props.currentUser.id}`, {
+    editUserSub = (sub) => {
+      fetch(`${userSubsURL}/${sub.id}`, {
         method: "PATCH",
-        headhers: headers,
+        headers: headers,
         body: JSON.stringify({
-          subscriptions: [{}]
+          subscription_id: 35
         })
       })
       .then(response => response.json())
@@ -69,32 +72,49 @@ class AppContainer extends React.Component {
     
     removeFromList = (sub) => {
       console.log(sub, "delete this sub")
-        // const newSubs = this.state.yourSubscriptions.filter(b => b !== sub)
-        // this.setState({yourSubscriptions: newSubs})
+        const newSubs = this.state.userSubscriptions.filter(b => b !== sub)
+        this.setState({userSubscriptions: newSubs})
         fetch(`${userSubsURL}/${sub.id}`, 
           {method: 'DELETE'})
       }
+
+    newSubscription = event => {
+      event.preventDefault();
+      fetch(subscriptionsURL, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({
+            company: this.state.fields.company,
+            cost: this.state.fields.cost
+        })
+      })
+      .then((response) => response.json())
+      // .then(data => {console.log(data)})
+      .then((data) => this.setState(prevState => ({subscriptions: [...prevState.subscriptions, data]})))
+      const resetFields = { company: "",
+      cost: 0 };
+      this.setState({ fields: resetFields });
+      event.target.reset();
+    }
         
     handleSubscriptionSubmit = event => {
         event.preventDefault();
         console.log("sub form submitted")
-        fetch(subscriptionsURL, {
+        fetch(userSubsURL, {
           method: "POST",
           headers: headers,
           body: JSON.stringify({
-            company: this.state.fields.company,
-            cost: this.state.fields.cost
+            user_id: this.props.currentUser.id,
+            start_date: this.state.fields.start_date,
+            end_date: this.state.fields.end_date,
+            subscription_id: this.state.fields.sub, 
           })
         })
         .then((response) => response.json())
-        .then((data) => this.setState(prevState => ({subscriptions: [...prevState.subscriptions, data]})))
+        .then((data) => this.setState(prevState => ({userSubscriptions: [...prevState.userSubscriptions, data]})))
         .catch((error) => {
           console.error('Error while post');
         });
-        const resetFields = { company: "",
-        cost: 0 };
-        this.setState({ fields: resetFields });
-        event.target.reset();
       }
 
     handleChange = (e) => {
@@ -104,24 +124,21 @@ class AppContainer extends React.Component {
     
     render() {
       const {handleSubscriptionSubmit, handleChange, addToList, removeFromList, hideForm} = this
-      const {yourSubscriptions, userSubscriptions} = this.state
-      const {subscriptions} = this.props
+      const {userSubscriptions, subscriptions} = this.state
+      // const {subscriptions} = this.props
 
       return (  
         <div className="ui container">            
-            <SubsList subscriptions={subscriptions} handleClick={addToList}
+            <SubsList subscriptions={subscriptions} handleClick={addToList} handleSubmit={this.newSubscription} handleChange={handleChange}
             />
 
             <h2 onClick={this.hideForm} className="formHeader">Click To Add To Your Subscription List</h2>
-            {this.state.clicked ? (<SubsForm hideForm={hideForm} 
+            {this.state.clicked ? (<SubsForm subs={subscriptions}hideForm={hideForm} 
             handleSubmit={handleSubscriptionSubmit} handleChange={handleChange} />)
             : null
             }
 
-            <YourSubs subscriptions={yourSubscriptions} handleClick={removeFromList} 
-            />
-
-            <UserSubs subscriptions={userSubscriptions} handleClick={removeFromList} 
+            <UserSubs subscriptions={userSubscriptions} handleClick={removeFromList} handleEditClick={this.editUserSub}
             />
         </div>
     )
