@@ -4,6 +4,7 @@ import SubsList from './SubsList'
 import YourSubs from './YourSubs'
 
 const subscriptionsURL = "http://localhost:3001/api/v1/subscriptions"
+const usersURL = "http://localhost:3001/api/v1/users"
 const userSubsURL = "http://localhost:3001/api/v1/user_subscriptions"
 const headers = {
   'Content-Type': 'application/json',
@@ -24,7 +25,7 @@ class AppContainer extends React.Component {
       }
 
     componentDidMount() {
-      this.setState({yourSubscriptions: [this.props.currentUser.user_subscriptions]
+      this.setState({yourSubscriptions: this.props.currentUser.subscriptions
       })
     }
 
@@ -45,20 +46,32 @@ class AppContainer extends React.Component {
           })
           .then((response) => response.json())
           // .then(resp => console.log(resp))
-          .then((data) => { if (!this.state.yourSubscriptions.includes(data)) {
+          .then((data) => { if (!this.state.yourSubscriptions.includes(data.subscription)) {
             return this.setState(prevState => ({
-              yourSubscriptions: [...prevState.yourSubscriptions, data]}
+              yourSubscriptions: [...prevState.yourSubscriptions, data.subscription]}
             ))}
           })
       }
+
+    patch = () => {
+      fetch(`${usersURL}/${this.props.currentUser.id}`, {
+        method: "PATCH",
+        headhers: headers,
+        body: JSON.stringify({
+          subscriptions: [{}]
+        })
+      })
+      .then(response => response.json())
+      .then(json => console.log(json))
+    }
     
     removeFromList = (sub) => {
       console.log(sub, "delete this sub")
         const newSubs = this.state.yourSubscriptions.filter(b => b !== sub)
         this.setState({yourSubscriptions: newSubs})
-        // fetch(`${userSubsURL}/${sub.id}`, {
-        //         method: 'DELETE'
-        //       })
+        this.patch()
+        // fetch(`${userSubsURL}/${id}`, 
+        //   {method: 'DELETE'})
       }
         
     handleSubscriptionSubmit = event => {
@@ -89,19 +102,19 @@ class AppContainer extends React.Component {
       };
     
     render() {
-        const {handleSubscriptionSubmit, handleChange, addToList, removeFromList, hideForm} = this
-        const {yourSubscriptions} = this.state
-        const {subscriptions} = this.props
-        console.log(yourSubscriptions.subscriptions)
-    return (  
+      const {handleSubscriptionSubmit, handleChange, addToList, removeFromList, hideForm} = this
+      const {yourSubscriptions} = this.state
+      const {subscriptions} = this.props
+
+      return (  
         <div className="ui container">            
             <SubsList subscriptions={subscriptions} handleClick={addToList}
             />
 
             <h2 onClick={this.hideForm} className="formHeader">Click To Add To Your Subscription List</h2>
-            {this.state.clicked ? <SubsForm hideForm={hideForm} 
-            handleSubmit={handleSubscriptionSubmit} handleChange={handleChange} />
-            :null
+            {this.state.clicked ? (<SubsForm hideForm={hideForm} 
+            handleSubmit={handleSubscriptionSubmit} handleChange={handleChange} />)
+            : null
             }
 
             <YourSubs subscriptions={yourSubscriptions} handleClick={removeFromList} 
