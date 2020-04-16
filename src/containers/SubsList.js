@@ -5,13 +5,13 @@ class SubsList extends Component {
 
   render() {
     const {subscriptions, handleClick} = this.props
-    console.log(subscriptions.length)
+    //console.log(subscriptions.length)
     return (
       <div className="ui segment violet">
-        <p>All Subscriptions</p>
+        <p>Suggested Subscriptions</p>
       <div className="ui four column grid">
         <div className="row">
-          {subscriptions.map(sub => <SubCard sub={sub} key={sub.id} handleClick={handleClick} deleteSub={this.props.deleteSub} />)}
+          {subscriptions.map(sub => <SubCard sub={sub} key={sub.id} handleClick={handleClick} />)}
         </div>
       </div>
       </div>

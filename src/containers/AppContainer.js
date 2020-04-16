@@ -16,7 +16,9 @@ class AppContainer extends React.Component {
     state = {
         fields: {
             company: "",
-            cost: 0
+            cost: 0,
+            start_date: "",
+            end_date: "",
         },
         subscriptions: [],
         yourSubscriptions: [],
@@ -78,13 +80,13 @@ class AppContainer extends React.Component {
         this.setState({yourSubscriptions: newSubs})
       }
     
-    deleteSub = (subId) => {
-        fetch(`${subsURL}/${subId}`, {
-          method: 'DELETE'
-        })
-        const afterDelete = this.state.subscriptions.filter(b => b.id !== subId)
-        this.setState({subscriptions: afterDelete})      
-      }
+    // deleteSub = (subId) => {
+    //     fetch(`${subsURL}/${subId}`, {
+    //       method: 'DELETE'
+    //     })
+    //     const afterDelete = this.state.subscriptions.filter(b => b.id !== subId)
+    //     this.setState({subscriptions: afterDelete})      
+    //   }
         
     handleSubscriptionSubmit = event => {
         event.preventDefault();
@@ -116,13 +118,13 @@ class AppContainer extends React.Component {
     render() {
         const {subscriptions, yourSubscriptions} = this.state
         const {handleSubscriptionSubmit, handleChange, addToList, removeFromList} = this
-        console.log(yourSubscriptions)
+        //console.log(yourSubscriptions)
     return (  
-        <div className="ui container">
-            <SubsForm handleSubmit={handleSubscriptionSubmit} handleChange={handleChange} />
-
-            <SubsList subscriptions={subscriptions} handleClick={addToList} deleteSub={this.deleteSub}
+        <div className="ui container">            
+            <SubsList subscriptions={subscriptions} handleClick={addToList}
             />
+
+            <SubsForm handleSubmit={handleSubscriptionSubmit} handleChange={handleChange} />
 
             <YourSubs subscriptions={yourSubscriptions} handleClick={removeFromList} 
             />

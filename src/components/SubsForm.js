@@ -5,6 +5,7 @@ const SubsForm = props =>  {
     return (
         <div className="ui form">
             <form onSubmit={handleSubmit}>
+                <h1>Add To Your Subscription List</h1>
                 <div className="ui field">
                 <label>
                     Company Name:
@@ -18,6 +19,16 @@ const SubsForm = props =>  {
                     <input name="cost" type="number" placeholder="0"
                     onChange={handleChange}/>
                 </label>
+                <label>
+                    Start Date:
+                    <input name="Start Date" type="date"
+                    onChange={handleChange}/>
+                </label>   
+                <label>
+                    End Date:
+                    <input name="End Date" type="date"
+                    onChange={handleChange}/>
+                </label>              
                 </div>
                 <input name="submit" value="Add New Subscription" type="submit" className="ui basic purple button" />
             </form>
