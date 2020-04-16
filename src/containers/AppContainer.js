@@ -20,11 +20,17 @@ class AppContainer extends React.Component {
             end_date: "",
         },
         clicked: false,
-        yourSubscriptions: [this.props.currentUser.subscriptions]
+        yourSubscriptions: {
+          subscriptions: [],
+          user_subscriptions: []
+        }
       }
 
     componentDidMount() {
-
+      this.setState({yourSubscriptions: {
+        subscriptions: [this.props.currentUser.subscriptions],
+        user_subscriptions: [this.props.currentUser.user_subscriptions]
+      }})
     }
 
     hideForm = () => {
@@ -43,17 +49,21 @@ class AppContainer extends React.Component {
             })
           })
           .then((response) => response.json())
-          .then((data) => { if (!this.state.yourSubscriptions.includes(data.subscription)) {
+          // .then(resp => console.log(resp))
+          .then((data) => { if (!this.state.yourSubscriptions.includes(data)) {
             return this.setState(prevState => ({
-              yourSubscriptions: [...prevState.yourSubscriptions, data.subscription]}
+              yourSubscriptions: [...prevState.yourSubscriptions, data]}
             ))}
           })
-        
       }
     
     removeFromList = (sub) => {
+      console.log(sub, "delete this sub")
         const newSubs = this.state.yourSubscriptions.filter(b => b !== sub)
         this.setState({yourSubscriptions: newSubs})
+        // fetch(`${userSubsURL}/${sub.id}`, {
+        //         method: 'DELETE'
+        //       })
       }
         
     handleSubscriptionSubmit = event => {
@@ -87,17 +97,19 @@ class AppContainer extends React.Component {
         const {handleSubscriptionSubmit, handleChange, addToList, removeFromList, hideForm} = this
         const {yourSubscriptions} = this.state
         const {subscriptions} = this.props
+        console.log(yourSubscriptions.subscriptions)
     return (  
         <div className="ui container">            
             <SubsList subscriptions={subscriptions} handleClick={addToList}
             />
-            <h1 onClick={this.hideForm} className="formHeader">Add To Your Subscription List</h1>
+
+            <h2 onClick={this.hideForm} className="formHeader">Click To Add To Your Subscription List</h2>
             {this.state.clicked ? <SubsForm hideForm={hideForm} 
             handleSubmit={handleSubscriptionSubmit} handleChange={handleChange} />
             :null
             }
 
-            <YourSubs subscriptions={yourSubscriptions} handleClick={removeFromList} 
+            <YourSubs subscriptions={yourSubscriptions.subscriptions} handleClick={removeFromList} 
             />
         </div>
     )
