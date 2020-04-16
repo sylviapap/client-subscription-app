@@ -1,17 +1,17 @@
 import React from "react";
 
 const YourSubCard = props => {
-  const {id, company, cost } = props.sub
+  console.log(props.key)
+  const {company, cost } = props.subscription
   const {handleClick} = props
   return (
     <div className="ui column">
       <div
         className="ui card"
-        key={id}
       >
         <div className="content">
           <div className="header">
-            {company}
+            <p>{company}</p>
           </div>
         </div>
         <div className="extra content">
@@ -21,10 +21,10 @@ const YourSubCard = props => {
           </p>
           <p>
             <button
-            className="ui icon button teal"
-            onClick={() => handleClick(props.sub)
+            className="ui icon basic button red"
+            onClick={() => handleClick(props.subscription)
             }
-            ><i className="clipboard list icon"></i></button>
+            >Remove<i className="trash icon"></i></button>
             </p>
         </div>
       </div>

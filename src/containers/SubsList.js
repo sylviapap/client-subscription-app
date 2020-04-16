@@ -8,7 +8,7 @@ class SubsList extends Component {
     //console.log(subscriptions.length)
     return (
       <div className="ui segment violet">
-        <p>Suggested Subscriptions</p>
+        <h2>Suggested Subscriptions</h2>
       <div className="ui four column grid">
         <div className="row">
           {subscriptions.map(sub => <SubCard sub={sub} key={sub.id} handleClick={handleClick} />)}

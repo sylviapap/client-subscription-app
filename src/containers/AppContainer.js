@@ -20,17 +20,12 @@ class AppContainer extends React.Component {
             end_date: "",
         },
         clicked: false,
-        yourSubscriptions: {
-          subscriptions: [],
-          user_subscriptions: []
-        }
+        yourSubscriptions: []
       }
 
     componentDidMount() {
-      this.setState({yourSubscriptions: {
-        subscriptions: [this.props.currentUser.subscriptions],
-        user_subscriptions: [this.props.currentUser.user_subscriptions]
-      }})
+      this.setState({yourSubscriptions: [this.props.currentUser.user_subscriptions]
+      })
     }
 
     hideForm = () => {
@@ -109,7 +104,7 @@ class AppContainer extends React.Component {
             :null
             }
 
-            <YourSubs subscriptions={yourSubscriptions.subscriptions} handleClick={removeFromList} 
+            <YourSubs subscriptions={yourSubscriptions} handleClick={removeFromList} 
             />
         </div>
     )
