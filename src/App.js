@@ -26,10 +26,10 @@ class App extends Component {
     const token = localStorage.getItem('token');
     if (token) {
       api.auth.getCurrentUser()
-      // .then(resp => console.log(resp))
-        .then((user) => {
+      // .then(res => console.log(res))
+        .then((resp) => {
         this.setState({ 
-          auth: {user} });
+          auth: resp.user });
       });
     }
   }

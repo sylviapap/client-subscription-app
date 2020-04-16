@@ -18,7 +18,6 @@ const getCurrentUser = () => {
     return fetch(`${API_ROOT}/current_user`, {
       headers: headers
     }).then(res => res.json())
-    .then(res => console.log(res))
   };
   
 export default {
