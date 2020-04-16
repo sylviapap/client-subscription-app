@@ -1,36 +1,49 @@
 import React from 'react'
 
 const SubsForm = props =>  {
-    const { handleSubmit, handleChange, subs } = props;
+    const { handleSubmit, handleChange, subs, fields } = props;
     return (
         <div className="ui form">
-            <form onSubmit={handleSubmit}>                
-            <label>
-                Company:
-                </label>
-                <div className="menu">
-                <select>
-                    {subs.map(sub =>                             
-                        <option value={sub.company}>{sub.company}</option>
-                        )}
-                </select>
-                <input name="sub" type="submit" value="Submit" placeholder="Company Name"
+        <form onSubmit={handleSubmit} >
+        <div className="ui field">
+            <label>Company:</label>
+            <select 
+            name="sub_id"
+            value={fields.sub_id}
+            onChange={handleChange} >
+                <option>Select a Company</option>
+                {subs.map(sub =>                             
+                    <option
+                    value={sub.id}
+                    key={sub.id}
+                    >
+                        {sub.company}
+                    </option>
+                    )}
+            </select>
+        </div>
+        <div className="ui field">
+            <label>Start Date:</label>   
+                <input 
+                name="start_date"
+                type="date"
+                value={fields.start_date}
                 onChange={handleChange}/>
-                </div>
-                <div className="ui field">
-                <label>
-                    Start Date:
-                    <input name="Start Date" type="date"
-                    onChange={handleChange}/>
-                </label>   
-                <label>
-                    End Date:
-                    <input name="End Date" type="date"
-                    onChange={handleChange}/>
-                </label>              
-                </div>
-                <input name="submit" value="Add New Subscription" type="submit" className="ui basic purple button" />
-            </form>
+        </div>
+        <div className="ui field">
+            <label>End Date:</label>
+                <input 
+                name="end_date" 
+                type="date"
+                value={fields.end_date}
+                onChange={handleChange}/>
+        </div>
+            <button 
+                type="submit" 
+                className="ui basic purple button">
+                Add New Subscription
+            </button>
+        </form>
         </div>
     )
 }
