@@ -6,8 +6,6 @@ import api from './services/api';
 import AppContainer from './containers/AppContainer'
 import LoginContainer from './containers/LoginContainer'
 
-const subscriptionsURL = "http://localhost:3001/api/v1/subscriptions"
-
 class App extends Component {
 
   state = {

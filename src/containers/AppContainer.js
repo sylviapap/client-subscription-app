@@ -4,7 +4,6 @@ import SubsList from './SubsList'
 import UserSubs from './UserSubs'
 
 const subscriptionsURL = "http://localhost:3001/api/v1/subscriptions"
-const usersURL = "http://localhost:3001/api/v1/users"
 const userSubsURL = "http://localhost:3001/api/v1/user_subscriptions"
 const headers = {
   'Content-Type': 'application/json',
