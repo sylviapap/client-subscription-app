@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 const NavBar = props =>  {
   const { currentUser, handleLogout } = props;
@@ -8,14 +8,19 @@ const NavBar = props =>  {
       <div className="ui menu">
         {loggedIn ? (
           <div className="item">
-            {`Welcome, ${currentUser.username}`}
+            {`Welcome ${currentUser.username}`}
           </div>
         ) : null}
         {loggedIn ? (
-            <div className="ui purple button" onClick={() => {
+          <a
+            onClick={() => {
               props.history.push('/');
               handleLogout();
-            }}>Log Out</div>
+            }}
+            className="item"
+          >
+            <div className="ui purple button">Log Out</div>
+          </a>
         ) : null}
       </div>
     )
