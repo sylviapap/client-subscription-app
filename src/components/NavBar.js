@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 const NavBar = props =>  {
   const { currentUser, handleLogout } = props;
@@ -12,15 +12,10 @@ const NavBar = props =>  {
           </div>
         ) : null}
         {loggedIn ? (
-          <a
-            onClick={() => {
+            <div onClick={() => {
               props.history.push('/');
               handleLogout();
-            }}
-            className="item"
-          >
-            <div className="ui purple button">Log Out</div>
-          </a>
+            }} className="ui purple button">Log Out</div>
         ) : null}
       </div>
     )
