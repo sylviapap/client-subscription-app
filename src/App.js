@@ -40,12 +40,7 @@ class App extends Component {
   //   localStorage.clear();
   // }
 
-  handleLogin = (user) => {
-    localStorage.setItem('token', user.token);
-    this.setState({auth: {user}});
-  };
-
-  handleSignUp = (resp) => {
+  handleLogin = (resp) => {
     localStorage.setItem('token', resp.token);
     this.setState({ auth: resp.user } );
   }
@@ -104,10 +99,10 @@ class App extends Component {
             path="/"
             render= { (routerProps) => {
               
-              const loggedIn = !!this.state.auth.user;
-              console.log(this.state.auth.user)
+              const loggedIn = !!this.state.auth.id;
+              console.log(this.state.auth.id)
 
-              return (loggedIn ? (<div><NavBar {...routerProps} currentUser={this.state.auth.user} handleLogout={this.handleLogout}/><AppContainer {...routerProps} currentUser={this.state.auth.user} subscriptions={this.state.subscriptions}/></div>) 
+              return (loggedIn ? (<div><NavBar {...routerProps} currentUser={this.state.auth} handleLogout={this.handleLogout}/><AppContainer {...routerProps} currentUser={this.state.auth} subscriptions={this.state.subscriptions}/></div>) 
               
               : 
               
