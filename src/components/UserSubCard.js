@@ -2,32 +2,35 @@ import React from "react";
 
 const UserSubCard = props => {
   const {handleClick, handleEditClick} = props
+  const {company, cost} = props.sub.subscription
   return (
     <div className="ui column">
-      <div
-        className="ui card"
-      >
+      <div className="ui card">
         <div className="content">
           <div className="header">
-          <p>{props.sub.subscription.company}</p>
-            <p>{props.sub.subscription.cost}</p>
-            <p>{props.sub.id}</p>
+          {company}
           </div>
         </div>
-          <p>
-            <button
-            className="ui icon basic button red"
-            onClick={() => handleClick(props.sub)
-            }
-            >Remove<i className="trash icon"></i></button>
-            <button
-            className="ui icon basic button red"
-            onClick={() => handleEditClick(props.sub)
-            }
-            >Update<i className="trash icon"></i></button>
-            </p>
+        <div className="extra content">
+        <p>${cost}</p>
+        <p>Start:{props.sub.start_date}</p>
+        <p>End:{props.sub.end_date}</p>
+        <p><button
+          className="ui icon button red"
+          onClick={() => handleClick(props.sub)
+          }>
+            Remove
+            <i className="trash icon"></i>
+          </button></p>
+          <p><button
+          className="ui icon button blue"
+          onClick={() => handleEditClick(props.sub)}>
+            Update
+            <i className="trash icon"></i>
+          </button></p>
         </div>
       </div>
+    </div>
   );
 };
 

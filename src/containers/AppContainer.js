@@ -122,7 +122,8 @@ class AppContainer extends React.Component {
     resetFields = (event) => {
       const resetFields = { 
         company: "",
-        cost: 0, start_date: "",
+        cost: 0, 
+        start_date: "",
         end_date: "",
         sub_id: "" 
       };

@@ -1,14 +1,11 @@
 import React from "react";
 
 const SubCard = props => {
-  const {id, company, cost } = props.sub
+  const { company, cost } = props.sub
   const {handleClick} = props
   return (
     <div className="ui column">
-      <div
-        className="ui card"
-        key={id}
-      >
+      <div className="ui card">
         <div className="content">
           <div className="header">
             {company}
@@ -17,7 +14,7 @@ const SubCard = props => {
         <div className="extra content">
           <p>
           <i className="money bill alternate outline icon"></i>
-            {cost}
+            ${cost}
           </p>
           <p>
             <button
