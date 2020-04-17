@@ -3,7 +3,6 @@ import React from 'react';
 const AuthForm = props =>  {
   const { fields, handleSubmit, handleChange } = props;
     return (
-      <div className="ui form">
         <form onSubmit={handleSubmit}>
           <div className="ui field">
             <label>Username</label>
@@ -28,7 +27,6 @@ const AuthForm = props =>  {
             Submit
           </button>
         </form>
-      </div>
       );
     }
   

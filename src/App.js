@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import './App.css';
 import NavBar from './components/NavBar'
 import api from './services/api';
 import AppContainer from './containers/AppContainer'
 import LoginContainer from './containers/LoginContainer'
+import './App.css';
 
 class App extends Component {
 
@@ -46,25 +46,26 @@ class App extends Component {
     this.setState({ auth: {} });
   };
 
-  handleClick = () => {
+  handleErrorClick = () => {
     console.log("clicked");
     this.setState({error: false})
   }
 
   render() {
     return (
-        <div id="content" className="App ui container">
-          {this.state.error ? 
-                <div className="ui warning message">
-                  <i className="close icon" onClick={this.handleClick}></i>
-                  <div className="header">
-                  Error
-                  </div>
-                  <p>{this.state.message}</p>
-                  <p>Please log in or sign up</p>
-                </div> 
-                : 
-                null}
+      <div className="App ui grid container">
+      {this.state.error ? 
+        <div className="ui warning message">
+          <i className="close icon" onClick={this.handleErrorClick}></i>
+          <div className="header">
+            Error
+          </div>
+            <p>{this.state.message}</p>
+            <p>Please log in or sign up</p>
+          </div> 
+          : 
+          null}
+          
           <Route
             path="/"
             render= { (routerProps) => {
