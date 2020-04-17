@@ -56,12 +56,12 @@ class AppContainer extends React.Component {
       }
       }
 
-    editUserSub = (sub) => {
+    patchUserSub = (sub) => {
       fetch(`${userSubsURL}/${sub.id}`, {
         method: "PATCH",
         headers: headers,
         body: JSON.stringify({
-          subscription_id: 35
+          start_date: Date()
         })
       })
       .then(response => response.json())
@@ -132,7 +132,7 @@ class AppContainer extends React.Component {
     }
     
     render() {
-      const {handleSubscriptionSubmit, handleChange, addToList, removeFromList, hideForm, editUserSub} = this
+      const {handleSubscriptionSubmit, handleChange, addToList, removeFromList, hideForm, patchUserSub} = this
       const {userSubscriptions, subscriptions, fields} = this.state
 
       return (  
@@ -146,7 +146,7 @@ class AppContainer extends React.Component {
             : null
             }
 
-            <UserSubs subscriptions={userSubscriptions} handleClick={removeFromList} handleEditClick={editUserSub}
+            <UserSubs subscriptions={userSubscriptions} handleClick={removeFromList} handleEditClick={patchUserSub}
             />
         </div>
     )

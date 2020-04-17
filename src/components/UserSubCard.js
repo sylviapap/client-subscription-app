@@ -25,8 +25,8 @@ const UserSubCard = props => {
           <p><button
           className="ui icon button blue"
           onClick={() => handleEditClick(props.sub)}>
-            Update
-            <i className="trash icon"></i>
+            Start Now
+            <i className="calendar alternate outline icon"></i>
           </button></p>
         </div>
       </div>
