@@ -46,13 +46,22 @@ class App extends Component {
     this.setState({ auth: {} });
   };
 
+  handleClick = () => {
+    console.log("clicked");
+    this.setState({error: false})
+  }
+
   render() {
     return (
         <div id="content" className="App ui container">
           {this.state.error ? 
-                <div>
-                  <p>Error, please log in or sign up</p>
+                <div className="ui warning message">
+                  <i className="close icon" onClick={this.handleClick}></i>
+                  <div className="header">
+                  Error
+                  </div>
                   <p>{this.state.message}</p>
+                  <p>Please log in or sign up</p>
                 </div> 
                 : 
                 null}
