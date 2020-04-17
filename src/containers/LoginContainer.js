@@ -8,6 +8,7 @@ const API_ROOT = `http://localhost:3001/api/v1`;
 class LoginContainer extends React.Component {
     state = {
         error: false,
+        message: "",
         fields: {
             username: '',
             password: ''
@@ -35,10 +36,19 @@ class LoginContainer extends React.Component {
         })
         .then(res => res.json())
         .then(res => {
-            if (res.error) {
-              this.setState({ error: true });
+            if (res.errors) {
+              console.log(res.errors);
+              this.setState({ 
+                error: true, 
+                message: res.errors, 
+                fields: {
+                  username: '',
+                  password: ''
+                } 
+              });
+              localStorage.clear();
             } else {
-              console.log(res)
+              // console.log(res)
               this.props.handleLogin(res);
               this.props.history.push('/');
             }}
@@ -47,9 +57,19 @@ class LoginContainer extends React.Component {
 
     handleLoginSubmit = (e) => {
         e.preventDefault();
-        api.auth.login(this.state.fields.username, this.state.fields.password).then((res) => {
+        api.auth.login(this.state.fields.username, this.state.fields.password)
+        .then((res) => {
           if (res.error) {
-            this.setState({ error: true });
+            console.log(res.error)
+            this.setState({ 
+              error: true, 
+              message: res.error, 
+              fields: {
+                username: '',
+                password: ''
+              } 
+            });
+            localStorage.clear();
           } else {
             console.log(res)
             this.props.handleLogin(res);
@@ -61,11 +81,32 @@ class LoginContainer extends React.Component {
     render() {
         return (
             <div className="ui container">
-                {this.state.error ? <h1>Error, please try again</h1> : null}
+                {this.state.error ? 
+                <div>
+                  <p>Error, please try again</p>
+                  <p>{this.state.message}</p>
+                </div> 
+                : 
+                null}
                 <Switch>
-                    <Route exact path="/" render={() => <div>Log In <AuthForm fields={this.state.fields} handleSubmit={this.handleLoginSubmit} handleChange={this.handleChange}/> <Link to="/signup">Create Account</Link></div>} />
+                    <Route exact path="/" render={() => 
+                      <div>Log In 
+                        <AuthForm 
+                          fields={this.state.fields} 
+                          handleSubmit={this.handleLoginSubmit} 
+                          handleChange={this.handleChange}
+                        /> 
+                      
+                        <Link to="/signup">Create Account</Link>
+                        </div>} />
+                    
                     <Route path="/signup" render={() =>
-                        <AuthForm fields={this.state.fields} handleSubmit={this.handleSignUpSubmit} handleChange={this.handleChange}/>} />
+                        <AuthForm 
+                          fields={this.state.fields} 
+                          handleSubmit={this.handleSignUpSubmit} 
+                          handleChange={this.handleChange}
+                        />} 
+                    />
                 </Switch>
             </div>
         )

@@ -9,18 +9,30 @@ import LoginContainer from './containers/LoginContainer'
 class App extends Component {
 
   state = {
-    auth: {}
+    auth: {},
+    error: false, 
+    message: ""
     }
 
   componentDidMount() {
     const token = localStorage.getItem('token');
     if (token) {
       api.auth.getCurrentUser()
-      // .then(res => console.log(res))
-        .then((resp) => {
-        this.setState({ 
-          auth: resp.user });
-      });
+      .then(resp => {
+        if (resp.error) {
+          console.log(resp.error)
+          this.setState({ 
+            error: true, 
+            message: resp.error 
+          });
+          this.handleLogout();
+        } else {
+          console.log(resp)
+          this.setState({ 
+          auth: resp.user })
+          }
+        }
+      )
     }
   }
 
@@ -37,6 +49,13 @@ class App extends Component {
   render() {
     return (
         <div id="content" className="App ui container">
+          {this.state.error ? 
+                <div>
+                  <p>Error, please log in or sign up</p>
+                  <p>{this.state.message}</p>
+                </div> 
+                : 
+                null}
           <Route
             path="/"
             render= { (routerProps) => {
