@@ -3,20 +3,17 @@ import { withRouter } from 'react-router-dom';
 
 const NavBar = props =>  {
   const { currentUser, handleLogout } = props;
-  const loggedIn = !!currentUser.id;
     return (
-      <div className="ui menu">
-        {loggedIn ? (
-          <div className="item">
-            {`Welcome, ${currentUser.username}`}
-          </div>
-        ) : null}
-        {loggedIn ? (
-            <div onClick={() => {
-              props.history.push('/');
-              handleLogout();
-            }} className="ui purple button">Log Out</div>
-        ) : null}
+      <div className="ui two item menu">
+        <div className="item">
+          {`Welcome, ${currentUser.username}`}
+        </div>
+        <div className="item">
+          <button onClick={() => {
+          props.history.push('/');
+          handleLogout();
+        }} className="ui purple button">Log Out</button>
+        </div>
       </div>
     )
 }
