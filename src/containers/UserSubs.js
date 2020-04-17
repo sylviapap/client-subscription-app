@@ -9,8 +9,8 @@ class YourSubs extends Component {
     return (
       <div className="ui segment inverted violet">
           <p>User Subscriptions</p>
-        <div className="ui four column grid">
-          <div className="row">
+        <div className="ui field">
+          <div className="ui segment">
             {subscriptions.map(sub => <UserSubCard sub={sub} key={sub.id} handleEditClick={handleEditClick} handleClick={handleClick}/>)}
           </div>
         </div>

@@ -4,7 +4,7 @@ import NavBar from './components/NavBar'
 import api from './services/api';
 import AppContainer from './containers/AppContainer'
 import LoginContainer from './containers/LoginContainer'
-import './App.css';
+// import './App.css';
 
 class App extends Component {
 
@@ -53,7 +53,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App ui grid container">
+      <div className="ui container">
       {this.state.error ? 
         <div className="ui warning message">
           <i className="close icon" onClick={this.handleErrorClick}></i>
@@ -72,7 +72,14 @@ class App extends Component {
               
               const loggedIn = !!this.state.auth.id;
 
-              return (loggedIn ? (<div><NavBar {...routerProps} currentUser={this.state.auth} handleLogout={this.handleLogout}/><AppContainer {...routerProps} currentUser={this.state.auth} subscriptions={this.state.subscriptions}/></div>) 
+              return (loggedIn ? (
+                <div>
+                  <NavBar {...routerProps} currentUser={this.state.auth} handleLogout={this.handleLogout}/>
+                <div className="ui grid container">
+                  <AppContainer {...routerProps} currentUser={this.state.auth} subscriptions={this.state.subscriptions}/>
+                </div>
+                </div>
+                ) 
               
               : 
               

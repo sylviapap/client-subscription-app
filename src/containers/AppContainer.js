@@ -136,19 +136,25 @@ class AppContainer extends React.Component {
       const {userSubscriptions, subscriptions, fields} = this.state
 
       return (  
-        <div className="ui container">            
-            <SubsList subscriptions={subscriptions} handleClick={addToList} handleSubmit={this.newSubscription} handleChange={handleChange}
-            />
+        <div className="ui grid">
+          <div className="five wide column">            
+          <SubsList subscriptions={subscriptions} handleClick={addToList} handleSubmit={this.newSubscription} handleChange={handleChange}
+          />
+          </div>
 
-            <h2 onClick={hideForm} className="formHeader">Click To Add To Your Subscription List</h2>
-            {this.state.clicked ? (<SubsForm subs={subscriptions} hideForm={hideForm} 
-            handleSubmit={handleSubscriptionSubmit} handleChange={handleChange} fields={fields} />)
-            : null
-            }
+          <div className="five wide column">            
+          <h2 className="formHeader">Add To Your Subscription List</h2>
+          <button className="ui button" onClick={hideForm}>View Form</button>
+          {this.state.clicked ? (<SubsForm subs={subscriptions} hideForm={hideForm} 
+          handleSubmit={handleSubscriptionSubmit} handleChange={handleChange} fields={fields} />)
+          : null
+          }</div>
 
-            <UserSubs subscriptions={userSubscriptions} handleClick={removeFromList} handleEditClick={patchUserSub}
-            />
+        <div className="five wide column">           
+          <UserSubs subscriptions={userSubscriptions} handleClick={removeFromList} handleEditClick={patchUserSub}
+          />
         </div>
+      </div>
     )
 }
 }

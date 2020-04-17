@@ -8,7 +8,6 @@ class SubsList extends Component {
 
     return (
       <div className="ui segment violet">
-      <div className="ui four column grid">
       <form className="ui form" onSubmit={handleSubmit}>                
         <div className="ui field">
         <label>
@@ -25,13 +24,12 @@ class SubsList extends Component {
         </label>             
         </div>
         <input name="submit" value="Add New Subscription" type="submit" className="ui basic purple button" />
-            </form>
-            <h2>Suggested Subscriptions</h2>
-
-        <div className="row">
+      </form>
+      
+      <h2>Suggested Subscriptions</h2>
+        <div className="ui field">
           {subscriptions.map(sub => <SubCard sub={sub} key={sub.id} handleClick={handleClick} />)}
         </div>
-      </div>
       </div>
     )
   }

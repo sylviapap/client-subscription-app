@@ -85,7 +85,7 @@ class LoginContainer extends React.Component {
   
   render() {
     return (
-      <div className="ui two column centered middle aligned center aligned grid">
+      <div className="ui center aligned middle aligned container">
         {this.state.error ? 
         <div className="ui warning message">
           <i className="close icon" onClick={this.handleErrorClick}></i>
@@ -99,12 +99,11 @@ class LoginContainer extends React.Component {
           null}
           <Switch>
               <Route exact path="/" render={() => 
-              <div>
                 <div className="column">
                   <h2 className="ui header">
                     <div className="content">
-                    Login
-                    <div className="sub header">Enter existing username and password
+                    Subscribr
+                    <div className="sub header">Login with existing username and password
                     </div>
                     </div>
                   </h2>
@@ -115,17 +114,15 @@ class LoginContainer extends React.Component {
                     handleChange={this.handleChange}
                   />
                   </form>                   
-                <div className="ui message">Need an account?
+                <div className="ui message"><p>Need an account?</p>
                   <Link to="/signup" onClick={this.handleErrorClick}>Sign Up Here</Link>
                 </div>
-                </div>
-                </div>
-                
+                </div>                
                 } />
               
               <Route exact path="/signup" render={() =>
-              <div>
-                <h2 class="ui icon header">
+              <div className="column">
+              <h2 class="ui icon header">
                   <i class="user circle outline icon"></i>
                   <div class="content">
                     Sign Up
@@ -133,11 +130,13 @@ class LoginContainer extends React.Component {
                     </div>
                   </div>
                 </h2>
+                <form className="ui form">
                   <AuthForm 
                     fields={this.state.fields} 
                     handleSubmit={this.handleSignUpSubmit} 
                     handleChange={this.handleChange}
                   />
+              </form>
               </div>} 
               />
           </Switch>
