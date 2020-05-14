@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import AuthForm from '../components/AuthForm'
 import {API_ROOT} from '../services/api';
+import api from '../services/api';
 
 class LoginContainer extends React.Component {
   state = {
