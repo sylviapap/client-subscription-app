@@ -1,5 +1,5 @@
-// const API_ROOT = `http://localhost:3001/api/v1`;
-const API_ROOT = `https://subscribr-api.herokuapp.com/api/v1`;
+// export const API_ROOT = `http://localhost:3001/api/v1`;
+export const API_ROOT = `https://subscribr-api.herokuapp.com/api/v1`;
 
 const token = localStorage.getItem('token');
 const headers = {
