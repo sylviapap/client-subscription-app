@@ -2,9 +2,10 @@ import React from 'react';
 import SubsForm from '../components/SubsForm'
 import SubsList from './SubsList'
 import UserSubs from './UserSubs'
+import {API_ROOT} from '../services/api';
 
-const subscriptionsURL = "http://localhost:3001/api/v1/subscriptions"
-const userSubsURL = "http://localhost:3001/api/v1/user_subscriptions"
+const subscriptionsURL = `${API_ROOT}/subscriptions`
+const userSubsURL = `${API_ROOT}/user_subscriptions`
 const headers = {
   'Content-Type': 'application/json',
   Accept: 'application/json'

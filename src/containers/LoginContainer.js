@@ -1,9 +1,7 @@
 import React from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import AuthForm from '../components/AuthForm'
-import api from '../services/api';
-
-const API_ROOT = `http://localhost:3001/api/v1`;
+import {API_ROOT} from '../services/api';
 
 class LoginContainer extends React.Component {
   state = {
