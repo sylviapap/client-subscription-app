@@ -84,7 +84,7 @@ class LoginContainer extends React.Component {
   
   render() {
     return (
-      <div className="ui center aligned middle aligned container">
+      <div className="ui middle aligned center aligned grid">
         {this.state.error ? 
         <div className="ui warning message">
           <i className="close icon" onClick={this.handleErrorClick}></i>
@@ -99,10 +99,11 @@ class LoginContainer extends React.Component {
           <Switch>
               <Route exact path="/" render={() => 
                 <div className="column">
-                  <h2 className="ui header">
+                  <h2 className="ui icon teal header">
+                  <i className="list icon"></i>
                     <div className="content">
                     Subscribr
-                    <div className="sub header">Login with existing username and password
+                    <div className="sub header">Welcome Back! Login with existing username and password
                     </div>
                     </div>
                   </h2>
@@ -113,29 +114,32 @@ class LoginContainer extends React.Component {
                     handleChange={this.handleChange}
                   />
                   </form>                   
-                <div className="ui message"><p>Need an account?</p>
-                  <Link to="/signup" onClick={this.handleErrorClick}>Sign Up Here</Link>
+                <div className="ui message"><p>Need an account?</p><span>Sign Up </span>
+                  <Link to="/signup" onClick={this.handleErrorClick}>Here</Link>
                 </div>
                 </div>                
                 } />
               
               <Route exact path="/signup" render={() =>
               <div className="column">
-              <h2 class="ui icon header">
-                  <i class="user circle outline icon"></i>
-                  <div class="content">
+              <h2 className="ui icon teal header">
+                  <i className="user circle outline icon"></i>
+                  <div className="content">
                     Sign Up
-                    <div class="sub header">Enter a new username (must be unique) and password
+                    <div className="sub header">Enter a new username (must be unique) and password
                     </div>
                   </div>
                 </h2>
-                <form className="ui form">
+                <form className="ui large form">
                   <AuthForm 
                     fields={this.state.fields} 
                     handleSubmit={this.handleSignUpSubmit} 
                     handleChange={this.handleChange}
                   />
               </form>
+              <div className="ui message"><p>Already have an account?</p><span>Log In </span>
+                  <Link to="/" onClick={this.handleErrorClick}>Here</Link>
+                </div>
               </div>} 
               />
           </Switch>

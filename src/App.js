@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Route } from 'react-router-dom';
 import NavBar from './components/NavBar'
 import api from './services/api';
 import AppContainer from './containers/AppContainer'
 import LoginContainer from './containers/LoginContainer'
-// import './App.css';
 
 class App extends Component {
 
@@ -53,7 +52,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="ui container">
+<Fragment>
       {this.state.error ? 
         <div className="ui warning message">
           <i className="close icon" onClick={this.handleErrorClick}></i>
@@ -86,7 +85,7 @@ class App extends Component {
               <LoginContainer {...routerProps} handleLogin={this.handleLogin} handleSignUp={this.handleSignUp}/>)
             }}
           />
-        </div>
+          </Fragment>
     );
   }
 }

@@ -3,19 +3,24 @@ import React from 'react';
 const AuthForm = props =>  {
   const { fields, handleSubmit, handleChange } = props;
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="ui large form" onSubmit={handleSubmit}>
+          <div className="ui stacked segment">
           <div className="ui field">
-            <label>Username</label>
+            <div className="ui left icon input">
+              <i className="user icon"></i>
             <input
+              type="text"
               name="username"
               placeholder="Username"
               value={fields.username}
               onChange={handleChange}
             />
+            </div>
           </div>
           <div className="ui field">
-            <label>Password</label>
-            <input
+          <div className="ui left icon input">
+            <i className="lock icon"></i>            
+              <input
               name="password"
               type="password"
               placeholder="Password"
@@ -23,7 +28,9 @@ const AuthForm = props =>  {
               onChange={handleChange}
             />
           </div>
-          <button type="submit" className="ui basic purple button">
+          </div>
+          </div>
+          <button type="submit" className="ui fluid large teal submit button">
             Submit
           </button>
         </form>
