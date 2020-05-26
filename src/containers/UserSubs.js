@@ -7,8 +7,8 @@ class YourSubs extends Component {
     const {subscriptions, handleClick, handleEditClick} = this.props
 
     return (
-      <div className="ui segment inverted violet">
-          <p>User Subscriptions</p>
+      <div className="ui segment inverted teal">
+          <h2>Your Subscriptions</h2>
         <div className="ui field">
           <div className="ui segment">
             {subscriptions.map(sub => <UserSubCard sub={sub} key={sub.id} handleEditClick={handleEditClick} handleClick={handleClick}/>)}

@@ -8,6 +8,7 @@ const SubsForm = props =>  {
         <div className="ui field">
             <label>Company:</label>
             <select 
+            className="ui selection dropdown"
             name="sub_id"
             value={fields.sub_id}
             onChange={handleChange} >
@@ -40,8 +41,8 @@ const SubsForm = props =>  {
         </div>
             <button 
                 type="submit" 
-                className="ui basic purple button">
-                Add New Subscription
+                className="ui teal button">
+                Add Subscription to Your List
             </button>
         </form>
         </div>

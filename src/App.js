@@ -52,7 +52,7 @@ class App extends Component {
 
   render() {
     return (
-<Fragment>
+    <Fragment>
       {this.state.error ? 
         <div className="ui warning message">
           <i className="close icon" onClick={this.handleErrorClick}></i>
@@ -65,29 +65,25 @@ class App extends Component {
           : 
           null}
           
-          <Route
-            path="/"
-            render= { (routerProps) => {
-              
-              const loggedIn = !!this.state.auth.id;
-
-              return (loggedIn ? (
-                <div>
-                  <NavBar {...routerProps} currentUser={this.state.auth} handleLogout={this.handleLogout}/>
-                <div className="ui grid container">
-                  <AppContainer {...routerProps} currentUser={this.state.auth} subscriptions={this.state.subscriptions}/>
-                </div>
-                </div>
-                ) 
-              
+      <Route
+        path="/"
+        render= { (routerProps) => {
+          const loggedIn = !!this.state.auth.id;
+            return (loggedIn ? 
+              <Fragment>
+              <NavBar {...routerProps} currentUser={this.state.auth} handleLogout={this.handleLogout}/>
+              <AppContainer {...routerProps} currentUser={this.state.auth} subscriptions={this.state.subscriptions}/>
+              </Fragment>
               : 
-              
-              <LoginContainer {...routerProps} handleLogin={this.handleLogin} handleSignUp={this.handleSignUp}/>)
-            }}
-          />
-          </Fragment>
-    );
-  }
-}
+              <LoginContainer {...routerProps} handleLogin={this.handleLogin} handleSignUp={this.handleSignUp}/>
+              )
+            }
+          }
+        />
+        </Fragment>
+
+          )
+        }
+      }
 
 export default App;

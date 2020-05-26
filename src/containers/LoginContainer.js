@@ -98,7 +98,7 @@ class LoginContainer extends React.Component {
           null}
           <Switch>
               <Route exact path="/" render={() => 
-                <div className="column">
+                <div className="auth column">
                   <h2 className="ui icon teal header">
                   <i className="list icon"></i>
                     <div className="content">
@@ -121,7 +121,7 @@ class LoginContainer extends React.Component {
                 } />
               
               <Route exact path="/signup" render={() =>
-              <div className="column">
+              <div className="auth column">
               <h2 className="ui icon teal header">
                   <i className="user circle outline icon"></i>
                   <div className="content">

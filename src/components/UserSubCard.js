@@ -1,7 +1,7 @@
 import React from "react";
 
 const UserSubCard = props => {
-  const {handleClick, handleEditClick} = props
+  const {handleClick} = props
   const {company, cost} = props.sub.subscription
   return (
     <div className="ui column">
@@ -12,21 +12,15 @@ const UserSubCard = props => {
           </div>
         </div>
         <div className="extra content">
-        <p>${cost}</p>
-        <p>Start:{props.sub.start_date}</p>
-        <p>End:{props.sub.end_date}</p>
+        <p><i className="money bill alternate outline icon teal"></i>${cost}</p>
+        <p>Starts: {props.sub.start_date.replace("T00:00:00.000Z","")}</p>
+        <p>Ends: {props.sub.end_date.replace("T00:00:00.000Z","")}</p>
         <p><button
-          className="ui icon button red"
+          className="ui icon button basic gray"
           onClick={() => handleClick(props.sub)
           }>
             Remove
             <i className="trash icon"></i>
-          </button></p>
-          <p><button
-          className="ui icon button blue"
-          onClick={() => handleEditClick(props.sub)}>
-            Start Now
-            <i className="calendar alternate outline icon"></i>
           </button></p>
         </div>
       </div>

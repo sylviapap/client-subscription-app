@@ -6,13 +6,13 @@ const NavBar = props =>  {
     return (
       <div className="ui two item menu">
         <div className="item">
-          {`Welcome, ${currentUser.username}`}
+          {`Welcome, ${currentUser.username}!`}
         </div>
         <div className="item">
           <button onClick={() => {
           props.history.push('/');
           handleLogout();
-        }} className="ui purple button">Log Out</button>
+        }} className="ui gray button">Log Out</button>
         </div>
       </div>
     )

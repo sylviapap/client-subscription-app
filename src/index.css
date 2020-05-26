@@ -14,11 +14,10 @@ code {
 }
 
 .ui.grid {
-  width: 100%;
   height: 100%;
-  margin: auto;
-} 
+}
 
-.column {
-  margin: 15%;
+.auth.column {
+  width: auto !important;
+  margin: auto !important;
 } 

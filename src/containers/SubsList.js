@@ -7,7 +7,12 @@ class SubsList extends Component {
     const {subscriptions, handleClick, handleSubmit, handleChange} = this.props
 
     return (
-      <div className="ui segment violet">
+      <div className="ui segment teal">
+        <h2>Companies</h2>
+        <div className="ui field">
+          {subscriptions.map(sub => <SubCard sub={sub} key={sub.id} handleClick={handleClick} />)}
+        </div>
+        <h2>Add to Company List</h2>
       <form className="ui form" onSubmit={handleSubmit}>                
         <div className="ui field">
         <label>
@@ -23,13 +28,8 @@ class SubsList extends Component {
             onChange={handleChange}/>
         </label>             
         </div>
-        <input name="submit" value="Add New Subscription" type="submit" className="ui basic purple button" />
+        <input name="submit" value="Add" type="submit" className="ui teal button" />
       </form>
-      
-      <h2>Suggested Subscriptions</h2>
-        <div className="ui field">
-          {subscriptions.map(sub => <SubCard sub={sub} key={sub.id} handleClick={handleClick} />)}
-        </div>
       </div>
     )
   }

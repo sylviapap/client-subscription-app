@@ -21,7 +21,6 @@ class AppContainer extends React.Component {
             end_date: "",
             sub_id: ""
         },
-        clicked: false,
         subscriptions: [],
         userSubscriptions: []
       }
@@ -31,12 +30,6 @@ class AppContainer extends React.Component {
         .then(resp => resp.json())
         .then(subData => this.setState({subscriptions: subData}))
       this.setState({userSubscriptions: this.props.currentUser.user_subscriptions
-      })
-    }
-
-    hideForm = () => {
-      this.setState({
-        clicked: !this.state.clicked
       })
     }
 
@@ -137,24 +130,25 @@ class AppContainer extends React.Component {
       const {userSubscriptions, subscriptions, fields} = this.state
 
       return (  
-        <div className="ui grid">
-          <div className="five wide column">            
+        
+        <div className="ui container">
+        <div className="ui three column grid">
+          <div className="column">            
           <SubsList subscriptions={subscriptions} handleClick={addToList} handleSubmit={this.newSubscription} handleChange={handleChange}
           />
           </div>
 
-          <div className="five wide column">            
+          <div className="column">            
           <h2 className="formHeader">Add To Your Subscription List</h2>
-          <button className="ui button" onClick={hideForm}>View Form</button>
-          {this.state.clicked ? (<SubsForm subs={subscriptions} hideForm={hideForm} 
-          handleSubmit={handleSubscriptionSubmit} handleChange={handleChange} fields={fields} />)
-          : null
-          }</div>
+          <SubsForm subs={subscriptions} hideForm={hideForm} 
+          handleSubmit={handleSubscriptionSubmit} handleChange={handleChange} fields={fields} />
+          </div>
 
-        <div className="five wide column">           
+        <div className="column">           
           <UserSubs subscriptions={userSubscriptions} handleClick={removeFromList} handleEditClick={patchUserSub}
           />
         </div>
+      </div>
       </div>
     )
 }

@@ -2,7 +2,6 @@ import React from "react";
 
 const SubCard = props => {
   const { company, cost } = props.sub
-  const {handleClick} = props
   return (
     <div className="ui column">
       <div className="ui card">
@@ -13,15 +12,9 @@ const SubCard = props => {
         </div>
         <div className="extra content">
           <p>
-          <i className="money bill alternate outline icon"></i>
+          <i className="money bill alternate outline icon teal"></i>
             ${cost}
           </p>
-          <p>
-            <button
-            className="ui icon button teal"
-            onClick={() => handleClick(props.sub)}
-            >Add<i className="plus icon"></i></button>
-            </p>
         </div>
       </div>
     </div>
