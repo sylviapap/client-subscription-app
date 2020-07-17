@@ -103,7 +103,7 @@ class LoginContainer extends React.Component {
                   <i className="list icon"></i>
                     <div className="content">
                     Subscribr
-                    <div className="sub header">Welcome Back! Login with existing username and password
+                    <div className="sub header">Welcome! Login with existing username and password
                     </div>
                     </div>
                   </h2>
