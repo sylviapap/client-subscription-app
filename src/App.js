@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Route } from 'react-router-dom';
 import NavBar from './components/NavBar'
-import api from './services/api';
+import {getCurrentUser} from './services/api';
 import AppContainer from './containers/AppContainer'
 import LoginContainer from './containers/LoginContainer'
 
@@ -16,7 +16,7 @@ class App extends Component {
   componentDidMount() {
     const token = localStorage.getItem('token');
     if (token) {
-      api.auth.getCurrentUser()
+      getCurrentUser()
       .then(resp => {
         if (resp.error) {
           console.log(resp.error)

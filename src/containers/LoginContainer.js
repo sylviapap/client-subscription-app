@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import AuthForm from '../components/AuthForm'
 import {API_ROOT} from '../services/api';
-import api from '../services/api';
+import {login} from '../services/api';
 
 class LoginContainer extends React.Component {
   state = {
@@ -56,7 +56,7 @@ class LoginContainer extends React.Component {
 
   handleLoginSubmit = (e) => {
       e.preventDefault();
-      api.auth.login(this.state.fields.username, this.state.fields.password)
+      login(this.state.fields.username, this.state.fields.password)
       .then((res) => {
         if (res.error) {
           console.log(res.error)
